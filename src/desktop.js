@@ -55,7 +55,6 @@ let database = new Database();
 
 ipcMain.on("APP_db-put", async (event, { key, value }) => {
     await database.put({ key, value });
-
     event.reply("APP_db-put-success");
 });
 
