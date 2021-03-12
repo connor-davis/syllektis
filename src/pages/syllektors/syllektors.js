@@ -1,7 +1,5 @@
 import {
     Button,
-    Card,
-    CardBody,
     Col,
     Dropdown,
     DropdownMenu,
@@ -12,7 +10,7 @@ import {
 } from 'reactstrap'
 import React, { useState } from 'react'
 
-const Syllektions = () => {
+const Syllektors = () => {
     const [dropdownOpen, setDropdownOpen] = useState(false)
 
     const toggle = () => setDropdownOpen((prevState) => !prevState)
@@ -37,28 +35,41 @@ const Syllektions = () => {
                         type="text"
                         className="border-focus mr-2"
                         style={{ boxShadow: 'none' }}
-                        placeholder="Syllektor ID"
+                        placeholder="First Name"
+                        style={{
+                            width: '75%',
+                        }}
                     />
-                    <Dropdown isOpen={dropdownOpen} toggle={toggle}>
-                        <DropdownToggle
-                            tag="span"
-                            className="m-2 mr-4 p-2 text-primary text-center pointer"
-                            data-toggle="dropdown"
-                            aria-expanded={dropdownOpen}
-                            caret
-                        >
-                            Material
-                        </DropdownToggle>
-                        <DropdownMenu className="text-center p-1">
-                            <div onClick={toggle} className="p-2 pointer">
-                                ## Material ##
-                            </div>
-                        </DropdownMenu>
-                    </Dropdown>
+                    <Input
+                        type="text"
+                        className="border-focus mr-2"
+                        style={{ boxShadow: 'none' }}
+                        placeholder="Last Name"
+                        style={{
+                            width: '75%',
+                        }}
+                    />
+                    <Input
+                        type="text"
+                        className="border-focus mr-2"
+                        style={{ boxShadow: 'none' }}
+                        placeholder="Phone Number"
+                        style={{
+                            width: '100%',
+                        }}
+                    />
+                    <Input
+                        type="text"
+                        className="border-focus mr-2"
+                        style={{ boxShadow: 'none' }}
+                        placeholder="ID Number"
+                        style={{
+                            width: '100%',
+                        }}
+                    />
                     <Button color="primary" className="mr-2">
-                        Submit
+                        <div>Add</div>
                     </Button>
-                    <Button color="primary">Export</Button>
                 </div>
             </Row>
 
@@ -67,15 +78,19 @@ const Syllektions = () => {
                     <thead>
                         <tr>
                             <th>#</th>
+                            <th>First Name</th>
+                            <th>Last Name</th>
+                            <th>Phone Number</th>
                             <th>ID Number</th>
-                            <th>Material</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
                             <th scope="row">1</th>
+                            <td>Mark</td>
+                            <td>Otto</td>
+                            <td>+27 67 892 8430</td>
                             <td>0302105185677</td>
-                            <td>PPE Plastic</td>
                         </tr>
                     </tbody>
                 </Table>
@@ -84,4 +99,4 @@ const Syllektions = () => {
     )
 }
 
-export default Syllektions
+export default Syllektors
