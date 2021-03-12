@@ -9,8 +9,11 @@ let mainWindow;
 
 function createWindow() {
     mainWindow = new BrowserWindow({
+        title: "Syllektis",
+        darkTheme: true,
         width: 1280,
         height: 720,
+        autoHideMenuBar: true,
         webPreferences: {
             nodeIntegration: false, // is default value after Electron v5
             contextIsolation: true, // protect against prototype pollution
