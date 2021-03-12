@@ -1,7 +1,6 @@
 import {
     Button,
     Dropdown,
-    DropdownItem,
     DropdownMenu,
     DropdownToggle,
     Input,
@@ -9,20 +8,24 @@ import {
 } from 'reactstrap'
 import React, { useState } from 'react'
 
-export const Syllektions = () => {
+const Syllektions = () => {
     const [dropdownOpen, setDropdownOpen] = useState(false)
 
     const toggle = () => setDropdownOpen((prevState) => !prevState)
     return (
         <>
-            <Row color="faded" light className="p-0 m-2 align-items-center border shadow-sm">
+            <Row
+                color="faded"
+                light
+                className="p-0 m-2 align-items-center border shadow-sm"
+            >
                 <div
                     style={{
                         width: '100%',
                         display: 'flex',
                         flexDirection: 'row',
                         justifyContent: 'space-between',
-                        alignItems: 'center'
+                        alignItems: 'center',
                     }}
                     className="p-2"
                 >
@@ -43,13 +46,19 @@ export const Syllektions = () => {
                             Material
                         </DropdownToggle>
                         <DropdownMenu className="text-center p-1">
-                            <div onClick={toggle} className="p-2 pointer">## Material ##</div>
+                            <div onClick={toggle} className="p-2 pointer">
+                                ## Material ##
+                            </div>
                         </DropdownMenu>
                     </Dropdown>
-                    <Button color="primary" className="mr-2">Submit</Button>
+                    <Button color="primary" className="mr-2">
+                        Submit
+                    </Button>
                     <Button color="primary">Export</Button>
                 </div>
             </Row>
         </>
     )
 }
+
+export default Syllektions

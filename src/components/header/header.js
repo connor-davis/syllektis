@@ -1,25 +1,33 @@
-import { Nav, NavItem, NavLink, Navbar, NavbarBrand } from 'reactstrap'
+import { Nav, NavItem, NavLink, Navbar } from 'reactstrap'
 
+import { Link } from 'react-router-dom'
 import React from 'react'
 
 export const Header = () => {
     return (
         <div>
             <Navbar color="faded" light>
-                <div className="me-auto">
-                </div>
+                <div className="me-auto"></div>
                 <Nav>
                     <NavItem>
-                        <NavLink href="/">Dashboard</NavLink>
+                        <Link to="/">
+                            <NavLink tag="div">Dashboard</NavLink>
+                        </Link>
                     </NavItem>
                     <NavItem>
-                        <NavLink href="/syllektions">Syllektions</NavLink>
+                        <Link to="/syllektions">
+                            <NavLink tag="div">Syllektions</NavLink>
+                        </Link>
                     </NavItem>
                     <NavItem>
-                        <NavLink href="/syllektors">Syllektors</NavLink>
+                        <Link to="/syllektors">
+                            <NavLink tag="div">Syllektors</NavLink>
+                        </Link>
                     </NavItem>
                     <NavItem>
-                        <NavLink href="/materials">Materials</NavLink>
+                        <Link to="/materials">
+                            <NavLink tag="div">Materials</NavLink>
+                        </Link>
                     </NavItem>
                 </Nav>
             </Navbar>

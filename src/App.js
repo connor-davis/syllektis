@@ -1,10 +1,14 @@
 import './app.css'
 
-import { Route, BrowserRouter as Router, Switch } from 'react-router-dom'
+import {
+    HashRouter,
+    Route,
+    Switch,
+} from 'react-router-dom'
 
 import { Header } from './components/header/header'
 import { NotFound } from './pages/404/NotFound'
-import { Syllektions } from './pages/syllektions/syllektions'
+import Syllektions from './pages/syllektions/syllektions'
 import { useEffect } from 'react'
 
 function App() {
@@ -12,7 +16,7 @@ function App() {
 
     return (
         <div className="app">
-            <Router>
+            <HashRouter>
                 <Header />
                 <Switch>
                     <Route exact path="/" />
@@ -21,7 +25,7 @@ function App() {
                     <Route path="/materials" />
                     <Route path="*" component={NotFound} />
                 </Switch>
-            </Router>
+            </HashRouter>
         </div>
     )
 }
