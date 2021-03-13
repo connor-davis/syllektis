@@ -1,4 +1,4 @@
-import { Nav, NavItem, NavLink, Navbar } from 'reactstrap'
+import { Button, Nav, NavItem, Navbar } from 'reactstrap'
 
 import { Link } from 'react-router-dom'
 import React from 'react'
@@ -11,22 +11,30 @@ export const Header = () => {
                 <Nav>
                     <NavItem>
                         <Link to="/">
-                            <NavLink tag="div">Dashboard</NavLink>
+                            <Button outline color="primary" className="mr-2">
+                                Dashboard
+                            </Button>
                         </Link>
                     </NavItem>
                     <NavItem>
                         <Link to="/syllektions">
-                            <NavLink tag="div">Syllektions</NavLink>
+                            <Button outline color="primary" className="mr-2">
+                                Syllektions
+                            </Button>
                         </Link>
                     </NavItem>
                     <NavItem>
                         <Link to="/syllektors">
-                            <NavLink tag="div">Syllektors</NavLink>
+                            <Button outline color="primary" className="mr-2">
+                                Syllektors
+                            </Button>
                         </Link>
                     </NavItem>
                     <NavItem>
                         <Link to="/materials">
-                            <NavLink tag="div">Materials</NavLink>
+                            <Button outline color="primary">
+                                Materials
+                            </Button>
                         </Link>
                     </NavItem>
                 </Nav>
