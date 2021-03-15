@@ -1,8 +1,15 @@
 import { Button, Col, Input, Row, Table } from 'reactstrap'
-import { FaCheck, FaPen, FaTrash } from 'react-icons/fa'
-import React, { useState } from 'react'
+import { FaPen, FaTrash } from 'react-icons/fa'
+import React, { useEffect, useState } from 'react'
+import {
+    selectSyllektors,
+    setSyllektors,
+} from '../../util/slices/syllektors.slice'
+import { useDispatch, useSelector } from 'react-redux'
 
 import TableEditing from '../../components/editing/table.editing'
+
+const ipcRenderer = window.ipcRenderer
 
 const Syllektors = () => {
     const [firstName, setFirstName] = useState('')
@@ -10,7 +17,16 @@ const Syllektors = () => {
     const [phoneNumber, setPhoneNumber] = useState('')
     const [idNumber, setIdNumber] = useState('')
 
-    const [syllektors, setSyllektors] = useState([])
+    const dispatch = useDispatch()
+    const syllektors = useSelector(selectSyllektors)
+
+    useEffect(() => {
+        ipcRenderer.send('API_db-get', { key: 'syllektors' })
+        ipcRenderer.on('API_db-get-success', ({ key, value }) => {
+            if (key === 'syllektors')
+                dispatch(setSyllektors(JSON.parse(value.value)))
+        })
+    }, [])
 
     const addSyllektor = () => {
         if (
@@ -18,48 +34,117 @@ const Syllektors = () => {
             lastName !== '' &&
             phoneNumber !== '' &&
             idNumber !== ''
-        )
+        ) {
             setFirstName('')
-        setLastName('')
-        setPhoneNumber('')
-        setIdNumber('')
+            setLastName('')
+            setPhoneNumber('')
+            setIdNumber('')
 
-        return setSyllektors((state) => [
-            ...state,
-            { firstName, lastName, phoneNumber, idNumber, editing: false },
-        ])
+            ipcRenderer.send('API_db-put', {
+                key: 'syllektors',
+                value: JSON.stringify([
+                    ...syllektors,
+                    {
+                        firstName,
+                        lastName,
+                        phoneNumber,
+                        idNumber,
+                        editing: false,
+                    },
+                ]),
+            })
+
+            return dispatch(
+                setSyllektors([
+                    ...syllektors,
+                    {
+                        firstName,
+                        lastName,
+                        phoneNumber,
+                        idNumber,
+                        editing: false,
+                    },
+                ])
+            )
+        }
     }
 
     const editSyllektor = (idNumber) => {
-        return setSyllektors((state) =>
-            state.map((syllektor) => {
-                if (syllektor.idNumber === idNumber) syllektor.editing = true
-                return syllektor
-            })
+        ipcRenderer.send('API_db-put', {
+            key: 'syllektors',
+            value: JSON.stringify(
+                syllektors.map((syllektor) => {
+                    if (syllektor.idNumber === idNumber)
+                        return { ...syllektor, editing: true }
+                    return syllektor
+                })
+            ),
+        })
+
+        return dispatch(
+            setSyllektors(
+                syllektors.map((syllektor) => {
+                    if (syllektor.idNumber === idNumber)
+                        return { ...syllektor, editing: true }
+                    return syllektor
+                })
+            )
         )
     }
 
     const completeEdit = (edited) => {
-        return setSyllektors((state) =>
-            state.map((syllektor) => {
-                if (syllektor.idNumber === edited.idNumber) {
-                    console.log(edited)
-                    if (
-                        edited.firstName !== '' &&
-                        edited.lastName !== '' &&
-                        edited.phoneNumber !== '' &&
-                        edited.idNumber !== ''
-                    )
-                        return edited
-                }
-                return syllektor
-            })
+        ipcRenderer.send('API_db-put', {
+            key: 'syllektors',
+            value: JSON.stringify(
+                syllektors.map((syllektor) => {
+                    if (syllektor.idNumber === edited.idNumber) {
+                        if (
+                            edited.firstName !== '' &&
+                            edited.lastName !== '' &&
+                            edited.phoneNumber !== '' &&
+                            edited.idNumber !== ''
+                        )
+                            return edited
+                    }
+                    return syllektor
+                })
+            ),
+        })
+
+        return dispatch(
+            setSyllektors(
+                syllektors.map((syllektor) => {
+                    if (syllektor.idNumber === edited.idNumber) {
+                        if (
+                            edited.firstName !== '' &&
+                            edited.lastName !== '' &&
+                            edited.phoneNumber !== '' &&
+                            edited.idNumber !== ''
+                        )
+                            return edited
+                    }
+                    return syllektor
+                })
+            )
         )
     }
 
     const removeSyllektor = (idNumber) => {
-        return setSyllektors((state) =>
-            state.filter((syllektor) => syllektor.idNumber !== idNumber)
+        ipcRenderer.send('API_db-put', {
+            key: 'syllektors',
+            value: JSON.stringify(
+                syllektors.filter(
+                    (syllektor) => syllektor.idNumber !== idNumber
+                )
+            ),
+        })
+
+        return dispatch(
+            setSyllektors(
+                syllektors.filter(
+                    (syllektor) => syllektor.idNumber !== idNumber
+                )
+            )
         )
     }
 
@@ -157,12 +242,18 @@ const Syllektors = () => {
                                         <td>{syllektor.phoneNumber}</td>
                                         <td>{syllektor.idNumber}</td>
                                         <td>
-                                            <Row tag="div" className="justify-content-center p-0 m-0">
+                                            <Row
+                                                tag="div"
+                                                className="justify-content-center p-0 m-0"
+                                            >
                                                 <Button
                                                     outline
                                                     color="info"
                                                     className="m-0 mr-2 p-0 px-2 py-1"
-                                                    style={{ height: 'auto', fontSize: 11 }}
+                                                    style={{
+                                                        height: 'auto',
+                                                        fontSize: 11,
+                                                    }}
                                                     title="Edit"
                                                     onClick={() => {
                                                         editSyllektor(
@@ -176,7 +267,10 @@ const Syllektors = () => {
                                                     outline
                                                     color="danger"
                                                     className="m-0 p-0 px-2 py-1"
-                                                    style={{ height: 'auto', fontSize: 11 }}
+                                                    style={{
+                                                        height: 'auto',
+                                                        fontSize: 11,
+                                                    }}
                                                     title="Delete"
                                                     onClick={() => {
                                                         removeSyllektor(

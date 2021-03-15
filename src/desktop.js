@@ -54,17 +54,6 @@ app.on('activate', () => {
     }
 })
 
-/**
- * Application Events
- */
 let database = new Database()
 
-ipcMain.on('APP_db-put', async (event, { key, value }) => {
-    await database.put({ key, value })
-    event.reply('APP_db-put-success')
-})
-
-ipcMain.on('APP_db-get', async (event, { key }) => {
-    let value = await database.get({ key })
-    event.reply('APP_db-get-success', { key, value })
-})
+require('./api/database.api').dbAPI(ipcMain, database)

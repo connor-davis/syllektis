@@ -1,7 +1,7 @@
 const { contextBridge, ipcRenderer } = require('electron');
 
 function callIpcRenderer(method, channel, ...args) {
-    if (typeof channel !== 'string' || !channel.startsWith('APP_')) {
+    if (typeof channel !== 'string' || !channel.startsWith('API_')) {
         throw 'Error: IPC channel name not allowed';
     }
 
