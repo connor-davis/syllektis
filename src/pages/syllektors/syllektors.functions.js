@@ -1,8 +1,18 @@
+import { setSyllektors } from '../../util/slices/syllektors.slice'
+
+const ipcRenderer = window.ipcRenderer
+
 export const addSyllektor = ({
+    syllektors,
     setFirstName,
     setLastName,
     setPhoneNumber,
     setIdNumber,
+    dispatch,
+    firstName,
+    lastName,
+    phoneNumber,
+    idNumber,
 }) => {
     if (
         firstName !== '' &&
@@ -44,7 +54,7 @@ export const addSyllektor = ({
     }
 }
 
-export const editSyllektor = (idNumber) => {
+export const editSyllektor = (syllektors, idNumber, dispatch) => {
     ipcRenderer.send('API_db-put', {
         key: 'syllektors',
         value: JSON.stringify(
@@ -67,7 +77,7 @@ export const editSyllektor = (idNumber) => {
     )
 }
 
-export const completeEdit = (edited) => {
+export const completeEdit = (syllektors, edited, dispatch) => {
     ipcRenderer.send('API_db-put', {
         key: 'syllektors',
         value: JSON.stringify(
@@ -104,7 +114,7 @@ export const completeEdit = (edited) => {
     )
 }
 
-export const removeSyllektor = (idNumber) => {
+export const removeSyllektor = (syllektors, idNumber, dispatch) => {
     ipcRenderer.send('API_db-put', {
         key: 'syllektors',
         value: JSON.stringify(
@@ -118,4 +128,3 @@ export const removeSyllektor = (idNumber) => {
         )
     )
 }
-

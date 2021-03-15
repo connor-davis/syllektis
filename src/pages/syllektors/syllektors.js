@@ -87,10 +87,16 @@ const Syllektors = () => {
                         className="mr-2"
                         onClick={() =>
                             addSyllektor({
+                                syllektors,
                                 setFirstName,
                                 setLastName,
                                 setPhoneNumber,
                                 setIdNumber,
+                                dispatch,
+                                firstName,
+                                lastName,
+                                phoneNumber,
+                                idNumber,
                             })
                         }
                     >
@@ -120,7 +126,11 @@ const Syllektors = () => {
                                         index={index}
                                         editingSyllektor={syllektor}
                                         completeEdit={(edited) =>
-                                            completeEdit(edited)
+                                            completeEdit(
+                                                syllektors,
+                                                edited,
+                                                dispatch
+                                            )
                                         }
                                     />
                                 ) : (
@@ -150,7 +160,9 @@ const Syllektors = () => {
                                                     title="Edit"
                                                     onClick={() => {
                                                         editSyllektor(
-                                                            syllektor.idNumber
+                                                            syllektors,
+                                                            syllektor.idNumber,
+                                                            dispatch
                                                         )
                                                     }}
                                                 >
@@ -167,7 +179,9 @@ const Syllektors = () => {
                                                     title="Delete"
                                                     onClick={() => {
                                                         removeSyllektor(
-                                                            syllektor.idNumber
+                                                            syllektors,
+                                                            syllektor.idNumber,
+                                                            dispatch
                                                         )
                                                     }}
                                                 >
