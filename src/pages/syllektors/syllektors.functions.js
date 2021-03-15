@@ -1,4 +1,4 @@
-const addSyllektor = ({
+export const addSyllektor = ({
     setFirstName,
     setLastName,
     setPhoneNumber,
@@ -44,7 +44,7 @@ const addSyllektor = ({
     }
 }
 
-const editSyllektor = (idNumber) => {
+export const editSyllektor = (idNumber) => {
     ipcRenderer.send('API_db-put', {
         key: 'syllektors',
         value: JSON.stringify(
@@ -67,7 +67,7 @@ const editSyllektor = (idNumber) => {
     )
 }
 
-const completeEdit = (edited) => {
+export const completeEdit = (edited) => {
     ipcRenderer.send('API_db-put', {
         key: 'syllektors',
         value: JSON.stringify(
@@ -104,7 +104,7 @@ const completeEdit = (edited) => {
     )
 }
 
-const removeSyllektor = (idNumber) => {
+export const removeSyllektor = (idNumber) => {
     ipcRenderer.send('API_db-put', {
         key: 'syllektors',
         value: JSON.stringify(
@@ -119,4 +119,3 @@ const removeSyllektor = (idNumber) => {
     )
 }
 
-module.exports = { addSyllektor, editSyllektor, completeEdit, removeSyllektor }
