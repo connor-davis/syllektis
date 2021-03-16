@@ -1,12 +1,13 @@
 const HyperBee = require('hyperbee')
-const HyperCore = require('hypercore')
+const HyperCore = require('hypercore');
+const { toPromises } = require('hypercore-promisifier');
 
 class Database {
     constructor() {
-        this.core = new HyperCore('syllektis-database', {
+        this.core = toPromises(new HyperCore('./syllektis-database', {
             keyEncoding: 'utf-8',
             valueEncoding: 'utf-8',
-        })
+        }))
 
         this.db = new HyperBee(this.core, {
             keyEncoding: 'utf-8',

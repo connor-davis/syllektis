@@ -6747,7 +6747,7 @@ hypercore-default-storage@^1.0.0, hypercore-default-storage@^1.1.1:
   optionalDependencies:
     fsctl "^1.0.0"
 
-hypercore-promisifier@^1.0.1:
+hypercore-promisifier@^1.0.1, hypercore-promisifier@^1.1.0:
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/hypercore-promisifier/-/hypercore-promisifier-1.1.0.tgz#50ec5174e957c10cd66b5b3e6f39dc044af340e8"
   integrity sha512-W4W+fhbWZ5ydLjiAwydXD0yBe9b5cHafoyedVyQ2L8PEsGCeYEr4Efrq/Fyaa/0dheNJvfJGTOs0c36FPweDnw==

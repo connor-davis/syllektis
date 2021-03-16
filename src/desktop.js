@@ -3,7 +3,7 @@ const { app, BrowserWindow, ipcMain } = require('electron')
 const path = require('path')
 const url = require('url')
 
-const { Database } = require('./database/database')
+const { Database } = require('./electron/database/database')
 
 let mainWindow
 
@@ -56,4 +56,4 @@ app.on('activate', () => {
 
 let database = new Database()
 
-require('./api/database.api').dbAPI(ipcMain, database)
+require('./electron/api/database.api').dbAPI(ipcMain, database)

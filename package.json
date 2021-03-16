@@ -13,6 +13,7 @@
         "bootswatch": "^4.6.0",
         "hyperbee": "^1.5.3",
         "hypercore": "^9.9.1",
+        "hypercore-promisifier": "^1.1.0",
         "hyperdrive": "^10.20.0",
         "node-sass": "^5.0.0",
         "react": "^17.0.1",

@@ -1,8 +1,8 @@
 $font-size-sm: 0.8rem;
 
-@import "styles/variables";
+@import "app/styles/variables";
 @import "~bootstrap/scss/bootstrap";
-@import "styles/bootswatch";
+@import "app/styles/bootswatch";
 
 * {
     box-sizing: border-box;

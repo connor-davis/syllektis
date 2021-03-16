@@ -8,13 +8,6 @@ import Syllektions from './app/pages/syllektions/syllektions'
 import Syllektors from './app/pages/syllektors/syllektors'
 import { useEffect } from 'react'
 
-/**
- * Momentum: Momentum of an object is the product of the mass and velocity of a moving body.
- * Newtons Second Law Of Motion: The net or resultant force acting on an object is equal to the rate of change in momentum.
- * The Conservation Of Linear Momentum: If two objects collide, then the total momentum before and after the collision will be the same if there is no external force acting on the colliding objects.
- */
-
-
 function App() {
     useEffect(() => {}, [])
 
