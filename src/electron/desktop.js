@@ -3,7 +3,7 @@ const { app, BrowserWindow, ipcMain } = require('electron')
 const path = require('path')
 const url = require('url')
 
-const { Database } = require('./electron/database/database')
+const { Database } = require('./database/database')
 
 let mainWindow
 
@@ -25,7 +25,7 @@ function createWindow() {
     const startUrl =
         process.env.ELECTRON_START_URL ||
         url.format({
-            pathname: path.join(__dirname, '/../build/index.html'),
+            pathname: path.join(__dirname, '/../../build/index.html'),
             protocol: 'file:',
             slashes: true,
             hash: '#',
@@ -56,4 +56,4 @@ app.on('activate', () => {
 
 let database = new Database()
 
-require('./electron/api/database.api').dbAPI(ipcMain, database)
+require('./api/database.api').dbAPI(ipcMain, database)
