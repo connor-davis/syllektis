@@ -1,7 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit'
 
-const ipcRenderer = window.ipcRenderer
-
 const syllektorsSlice = createSlice({
     name: 'syllektors',
     initialState: {

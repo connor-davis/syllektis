@@ -8,12 +8,28 @@ import {
     Row,
     Table,
 } from 'reactstrap'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+
+import { loadSyllektions } from './syllektions.functions'
+import { selectSyllektions } from '../../util/slices/syllektions.slice'
 
 const Syllektions = () => {
-    const [dropdownOpen, setDropdownOpen] = useState(false)
+    const [firstName, setFirstName] = useState('')
+    const [lastName, setLastName] = useState('')
+    const [phoneNumber, setPhoneNumber] = useState('')
+    const [idNumber, setIdNumber] = useState('')
 
+    const dispatch = useDispatch()
+    const syllektions = useSelector(selectSyllektions)
+
+    useEffect(() => {
+        if (syllektions) loadSyllektions(dispatch, syllektions)
+    }, [])
+
+    const [dropdownOpen, setDropdownOpen] = useState(false)
     const toggle = () => setDropdownOpen((prevState) => !prevState)
+
     return (
         <>
             <Row
@@ -61,22 +77,49 @@ const Syllektions = () => {
             </Row>
 
             <Col className="px-2 m-0">
-                <Table className="border shadow-sm">
-                    <thead>
-                        <tr>
-                            <th>#</th>
-                            <th>ID Number</th>
-                            <th>Material</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <th scope="row">1</th>
-                            <td>0302105185677</td>
-                            <td>PPE Plastic</td>
-                        </tr>
-                    </tbody>
-                </Table>
+                <div className="border shadow-sm">
+                    <Table>
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>ID Number</th>
+                                <th>Material</th>
+                                <th>Mass</th>
+                                <th>Date</th>
+                                <th>Earned</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {syllektions.map((syllektion, index) => (
+                                <tr key={index}>
+                                    <th scope="row">{index + 1}</th>
+                                    <td>{syllektion.idNumber}</td>
+                                    <td>{syllektion.material}</td>
+                                    <td>{syllektion.mass}</td>
+                                    <td>{syllektion.dateIn}</td>
+                                    <td>{syllektion.tokensEarned}</td>
+                                </tr>
+                            ))}
+                        </tbody>
+                    </Table>
+
+                    {syllektions.length > 0 ? (
+                        <div
+                            style={{
+                                width: '100%',
+                                height: 'auto',
+                                display: 'flex',
+                                flexDirection: 'row',
+                                justifyContent: 'center',
+                                alignItems: 'center',
+                            }}
+                        />
+                    ) : (
+                        <Row className="justify-content-center p-0 pt-2 m-0">
+                            <h5>No Syllektions</h5>
+                        </Row>
+                    )}
+                </div>
             </Col>
         </>
     )

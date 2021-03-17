@@ -2,6 +2,25 @@ import { setSyllektors } from '../../util/slices/syllektors.slice'
 
 const ipcRenderer = window.ipcRenderer
 
+export const loadSyllektors = (dispatch, currentSyllektors) => {
+    ipcRenderer.send('API_db-get', { key: 'syllektors' })
+    ipcRenderer.on('API_db-get-success', ({ key, value }) => {
+        if (key === 'syllektors')
+            dispatch(setSyllektors(JSON.parse(value.value)))
+    })
+    ipcRenderer.on('API_db-get-failure', ({ key }) => {
+        if (key === 'syllektors') {
+            ipcRenderer.send('API_db-put', {
+                key: 'syllektors',
+                value: JSON.stringify(currentSyllektors),
+            })
+            ipcRenderer.on('API_db-put-success', () => {
+                ipcRenderer.send('API_db-get', { key: 'syllektors' })
+            })
+        }
+    })
+}
+
 export const addSyllektor = ({
     syllektors,
     setFirstName,

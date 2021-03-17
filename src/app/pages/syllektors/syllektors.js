@@ -5,6 +5,7 @@ import {
     addSyllektor,
     completeEdit,
     editSyllektor,
+    loadSyllektors,
     removeSyllektor,
 } from './syllektors.functions'
 import {
@@ -27,11 +28,7 @@ const Syllektors = () => {
     const syllektors = useSelector(selectSyllektors)
 
     useEffect(() => {
-        ipcRenderer.send('API_db-get', { key: 'syllektors' })
-        ipcRenderer.on('API_db-get-success', ({ key, value }) => {
-            if (key === 'syllektors')
-                dispatch(setSyllektors(JSON.parse(value.value)))
-        })
+        if (syllektors) loadSyllektors(dispatch, syllektors)
     }, [])
 
     return (
