@@ -11,6 +11,7 @@ import {
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 
+import { initDB } from '../../util/database'
 import { loadSyllektions } from './syllektions.functions'
 import { selectSyllektions } from '../../util/slices/syllektions.slice'
 
@@ -24,6 +25,7 @@ const Syllektions = () => {
     const syllektions = useSelector(selectSyllektions)
 
     useEffect(() => {
+        initDB()
         if (syllektions) loadSyllektions(dispatch, syllektions)
     }, [])
 

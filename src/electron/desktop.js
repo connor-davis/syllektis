@@ -1,9 +1,7 @@
-const { app, BrowserWindow, ipcMain } = require('electron')
+const { app, BrowserWindow } = require('electron')
 
 const path = require('path')
 const url = require('url')
-
-const { Database } = require('./database/database')
 
 let mainWindow
 
@@ -53,7 +51,3 @@ app.on('activate', () => {
         createWindow()
     }
 })
-
-let database = new Database()
-
-require('./api/database.api').dbAPI(ipcMain, database)

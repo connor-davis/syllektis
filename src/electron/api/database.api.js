@@ -1,16 +1,48 @@
-const dbAPI = (ipcMain, database) => {
-    ipcMain.on('API_db-put', async (event, { key, value }) => {
-        await database.put({ key, value })
+const SDK = require('hyper-sdk')
+const HyperBee = require('hyperbee')
 
-        event.reply('API_db-put-success')
-    })
+class Database {
+    constructor() {
+        this.init()
+    }
 
-    ipcMain.on('API_db-get', async (event, { key }) => {
-        let value = await database.get({ key })
+    async init() {
+        this._sdk = await SDK({
+            persist: true,
+            storage: null,
+        })
 
-        if (value) event.reply('API_db-get-success', { key, value })
-        else event.reply('API_db-get-failure', { key })
-    })
+        this._hypercore = this._sdk.Hypercore
+        this._hyperdrive = this._sdk.Hyperdrive
+        this._close = this._sdk.close
+
+        this.drive = this._hyperdrive('syllektis-database')
+
+        await this.drive.ready()
+
+        this._url = `hyper://${this.drive.key.toString('hex')}`
+
+        this.core = this._hypercore('syllektis-core', this.drive.key, {
+            keyEncoding: 'utf-8',
+            valueEncoding: 'utf-8',
+        })
+        this.bee = new HyperBee(this.core, {
+            keyEncoding: 'utf-8',
+            valueEncoding: 'utf-8',
+        })
+    }
+
+    async put(key, value) {
+        await this.bee.put(key, value)
+    }
+
+    async get(key) {
+        return await this.bee.get(key)
+    }
+
+    async remove(key) {
+        await this.bee.del(key)
+    }
 }
 
-module.exports = { dbAPI }
+module.exports = { Database }
