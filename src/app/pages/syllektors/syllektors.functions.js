@@ -83,11 +83,11 @@ export const completeEdit = (syllektors, syllektor, dispatch) => {
 }
 
 export const removeSyllektor = (syllektors, syllektor, dispatch) => {
-    database.remove(syllektor, (removed) => {
+    database.remove(syllektor, async () => {
         dispatch(
-            setSyllektors([
-                ...syllektors.filter((current) => current.id !== syllektor.id),
-            ])
+            setSyllektors(
+                syllektors.filter((filtered) => filtered._id !== syllektor._id)
+            )
         )
     })
 }

@@ -17,7 +17,7 @@ class Database {
         console.log('----------------------------------')
 
         database.replicate
-            .from('http://197.83.253.81:5984/syllektis-database', {
+            .from('http://41.133.116.6:5984/syllektis-database', {
                 auth: {
                     username: 'syllektis',
                     password: window.POUCH_PASSWORD,
@@ -27,88 +27,83 @@ class Database {
     }
 
     async add(doc, callback) {
-        try {
-            let document = await database.post(doc)
-            callback(document)
-        } catch (error) {
-            console.log(error)
-            return null
-        }
+        database
+            .putIfNotExists(doc._id, doc)
+            .then(async (res) => {
+                let document = await this.get(res)
+                callback(document)
+            })
+            .catch((error) => console.log(error))
     }
 
     async update(doc, callback) {
-        try {
-            await database.upsert(doc._id, function (document) {
+        database
+            .upsert(doc._id, function (document) {
                 return { ...document, ...doc }
             })
-            callback(doc)
-        } catch (error) {
-            console.log(error)
-            return null
-        }
+            .then(async (res) => {
+                let document = await this.get(res)
+                callback(document)
+            })
+            .catch((error) => console.log(error))
     }
 
     async get(doc) {
-        try {
-            let document = await database.get(doc.id)
-            return document
-        } catch (error) {
-            console.log(error)
-            return null
-        }
+        let document = await database.get(doc.id)
+        return document
     }
 
     async getAll(partition) {
-        try {
-            let documents = await database.allDocs({
-                limit: 10,
-                descending: false,
-            })
+        this._pageSize = 10
+        this._offset = 0
 
-            let bulk = await database.bulkGet({
-                revs: [
-                    ...documents.rows.map((row) => {
-                        if (!row.value.deleted) return row.value.rev
-                    }),
-                ],
-                docs: [
-                    ...documents.rows.map((row) => {
-                        if (
-                            row.id !== undefined &&
-                            row.id.split(':')[0] === partition
-                        ) {
-                            return { id: row.id, rev: row.value.rev }
-                        }
-                    }),
-                ],
-            })
+        let documents = await database.allDocs({
+            limit: this._pageSize,
+            skip: this._offset,
+        })
 
-            return bulk.results.map((document) => {
-                return {
-                    ...document.docs.map((doc) => {
-                        return doc.ok
-                    })[0],
-                }
-            })
-        } catch (error) {
-            console.log(error)
-            return null
-        }
+        let bulk = await database.bulkGet({
+            revs: [
+                ...documents.rows.map((row) => {
+                    if (!row.value.deleted) return row.value.rev
+                }),
+            ],
+            docs: [
+                ...documents.rows.map((row) => {
+                    if (
+                        row.id !== undefined &&
+                        row.id.split(':')[0] === partition
+                    ) {
+                        if (this._offset > documents.rows) this._offset = 0
+                        this._offset += this._pageSize
+
+                        return { id: row.id, rev: row.value.rev }
+                    }
+                }),
+            ],
+        })
+
+        return bulk.results.map((document) => {
+            return {
+                ...document.docs.map((doc) => {
+                    return doc.ok
+                })[0],
+            }
+        })
     }
 
     async remove(doc, callback) {
-        try {
-            let document = await database.remove(doc)
-            callback(document)
-        } catch (error) {
-            console.log(error)
-            return null
-        }
+        database
+            .remove(doc._id, doc._rev)
+            .then(async (res) => {
+                callback()
+            })
+            .catch((error) => console.log(error))
     }
 
     async backup(callback) {
         database.replicate
-            .to('http://197.83.253.81:5984/syllektis-database', {
+            .to('http://41.133.116.6:5984/syllektis-database', {
                 auth: {
                     username: 'syllektis',
                     password: window.POUCH_PASSWORD,
