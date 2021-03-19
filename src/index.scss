@@ -1,8 +1,8 @@
 $font-size-sm: 0.8rem;
 
-@import "app/styles/variables";
-@import "~bootstrap/scss/bootstrap";
-@import "app/styles/bootswatch";
+@import 'app/styles/variables';
+@import '~bootstrap/scss/bootstrap';
+@import 'app/styles/bootswatch';
 
 * {
     box-sizing: border-box;
@@ -28,4 +28,13 @@ $font-size-sm: 0.8rem;
 }
 .w-75p {
     width: 75%;
+}
+.w-60p {
+    width: 60%;
+}
+.w-50p {
+    width: 50%;
+}
+.w-30p {
+    width: 30%;
 }

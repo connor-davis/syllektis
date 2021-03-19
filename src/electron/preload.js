@@ -1,5 +1,4 @@
 const { contextBridge, ipcRenderer } = require('electron')
-const { Database } = require('./api/database.api')
 
 function callIpcRenderer(method, channel, ...args) {
     if (typeof channel !== 'string' || !channel.startsWith('API_')) {
@@ -23,16 +22,10 @@ function callIpcRenderer(method, channel, ...args) {
     }
 }
 
-let database = new Database()
-
 contextBridge.exposeInMainWorld('ipcRenderer', {
     invoke: (...args) => callIpcRenderer('invoke', ...args),
     send: (...args) => callIpcRenderer('send', ...args),
     on: (...args) => callIpcRenderer('on', ...args),
 })
 
-contextBridge.exposeInMainWorld('database', {
-    get: (key) => database.get(key),
-    put: (key, value) => database.put(key, value),
-    remove: (key) => database.remove(key),
-})
+contextBridge.exposeInMainWorld('POUCH_PASSWORD', process.env.POUCH_PASSWORD)

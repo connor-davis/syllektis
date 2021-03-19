@@ -16,19 +16,19 @@ import { useDispatch, useSelector } from 'react-redux'
 
 import TableEditing from '../../components/editing/table.editing'
 
-const ipcRenderer = window.ipcRenderer
-
 const Syllektors = () => {
     const [firstName, setFirstName] = useState('')
     const [lastName, setLastName] = useState('')
     const [phoneNumber, setPhoneNumber] = useState('')
     const [idNumber, setIdNumber] = useState('')
+    const [accountNumber, setAccountNumber] = useState('')
+    const [branchCode, setBranchCode] = useState('')
 
     const dispatch = useDispatch()
     const syllektors = useSelector(selectSyllektors)
 
     useEffect(() => {
-        if (syllektors) loadSyllektors(dispatch, syllektors)
+        if (syllektors) loadSyllektors(dispatch)
     }, [])
 
     return (
@@ -65,7 +65,7 @@ const Syllektors = () => {
                     />
                     <Input
                         type="text"
-                        className="border-focus w-100p mr-2"
+                        className="border-focus w-50p mr-2"
                         style={{ boxShadow: 'none' }}
                         placeholder="Phone Number"
                         value={phoneNumber}
@@ -73,11 +73,29 @@ const Syllektors = () => {
                     />
                     <Input
                         type="text"
-                        className="border-focus w-100p mr-2"
+                        className="border-focus w-50p mr-2"
                         style={{ boxShadow: 'none' }}
                         placeholder="ID Number"
                         value={idNumber}
                         onChange={({ target }) => setIdNumber(target.value)}
+                    />
+                    <Input
+                        type="text"
+                        className="border-focus w-60p mr-2"
+                        style={{ boxShadow: 'none' }}
+                        placeholder="Account Number"
+                        value={accountNumber}
+                        onChange={({ target }) =>
+                            setAccountNumber(target.value)
+                        }
+                    />
+                    <Input
+                        type="text"
+                        className="border-focus w-30p mr-2"
+                        style={{ boxShadow: 'none' }}
+                        placeholder="Branch Code"
+                        value={branchCode}
+                        onChange={({ target }) => setBranchCode(target.value)}
                     />
                     <Button
                         color="primary"
@@ -89,11 +107,15 @@ const Syllektors = () => {
                                 setLastName,
                                 setPhoneNumber,
                                 setIdNumber,
+                                setAccountNumber,
+                                setBranchCode,
                                 dispatch,
                                 firstName,
                                 lastName,
                                 phoneNumber,
                                 idNumber,
+                                accountNumber,
+                                branchCode,
                             })
                         }
                     >
@@ -112,6 +134,8 @@ const Syllektors = () => {
                                 <th>Last Name</th>
                                 <th>Phone Number</th>
                                 <th>ID Number</th>
+                                <th>Account Number</th>
+                                <th>Branch Code</th>
                                 <th>Options</th>
                             </tr>
                         </thead>
@@ -134,13 +158,17 @@ const Syllektors = () => {
                                     <tr
                                         key={index + syllektor.idNumber}
                                         className="text-center"
-                                        style={{ alignItems: 'center' }}
+                                        style={{
+                                            alignItems: 'center',
+                                        }}
                                     >
                                         <th>{index + 1}</th>
                                         <td>{syllektor.firstName}</td>
                                         <td>{syllektor.lastName}</td>
                                         <td>{syllektor.phoneNumber}</td>
                                         <td>{syllektor.idNumber}</td>
+                                        <td>{syllektor.accountNumber}</td>
+                                        <td>{syllektor.branchCode}</td>
                                         <td>
                                             <Row
                                                 tag="div"
@@ -158,7 +186,7 @@ const Syllektors = () => {
                                                     onClick={() => {
                                                         editSyllektor(
                                                             syllektors,
-                                                            syllektor.idNumber,
+                                                            syllektor,
                                                             dispatch
                                                         )
                                                     }}
@@ -177,7 +205,7 @@ const Syllektors = () => {
                                                     onClick={() => {
                                                         removeSyllektor(
                                                             syllektors,
-                                                            syllektor.idNumber,
+                                                            syllektor,
                                                             dispatch
                                                         )
                                                     }}
