@@ -1,6 +1,5 @@
 import Database from '../../util/database'
 import { setSyllektions } from '../../util/slices/syllektions.slice'
-import { v4 } from 'uuid'
 
 let database = new Database()
 
