@@ -6,10 +6,6 @@ var database = new PouchDB('syllektis-database')
 
 class Database {
     constructor() {
-        this.backup()
-
-        this.init()
-
         this._interval = setInterval(() => {
             this.backup()
         }, 5 * 1000 * 60 * 60)
@@ -62,7 +58,7 @@ class Database {
         }
     }
 
-    async getAll() {
+    async getAll(partition) {
         try {
             let documents = await database.allDocs({
                 limit: 10,
@@ -77,8 +73,12 @@ class Database {
                 ],
                 docs: [
                     ...documents.rows.map((row) => {
-                        if (!row.value.deleted)
+                        if (
+                            row.id !== undefined &&
+                            row.id.split(':')[0] === partition
+                        ) {
                             return { id: row.id, rev: row.value.rev }
+                        }
                     }),
                 ],
             })

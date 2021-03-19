@@ -2,14 +2,20 @@ import './app.css'
 
 import { HashRouter, Route, Switch } from 'react-router-dom'
 
+import Database from './app/util/database'
 import { Header } from './app/components/header/header'
 import { NotFound } from './app/pages/404/NotFound'
 import Syllektions from './app/pages/syllektions/syllektions'
 import Syllektors from './app/pages/syllektors/syllektors'
 import { useEffect } from 'react'
 
+let database = new Database()
+
 function App() {
-    useEffect(() => {}, [])
+    useEffect(() => {
+        database.backup()
+        database.init()
+    }, [])
 
     return (
         <div className="app">

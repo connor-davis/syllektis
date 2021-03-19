@@ -5,7 +5,7 @@ import { v4 } from 'uuid'
 let database = new Database()
 
 export const loadSyllektors = async (dispatch) =>
-    dispatch(setSyllektors(await database.getAll()))
+    dispatch(setSyllektors((await database.getAll('syllektor')) || []))
 
 export const addSyllektor = ({
     syllektors,
