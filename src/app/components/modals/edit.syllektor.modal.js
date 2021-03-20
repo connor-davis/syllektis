@@ -129,7 +129,7 @@ const SyllektorEditing = ({
                 />
                 <Input
                     type="text"
-                    className="border-focus mb-2"
+                    className="border-focus mb-4"
                     style={{ boxShadow: 'none' }}
                     placeholder="ID Number"
                     value={idNumber}
@@ -138,7 +138,7 @@ const SyllektorEditing = ({
                 />
                 <Input
                     type="text"
-                    className="border-focus mb-2"
+                    className="border-focus mb-2 mt-4"
                     style={{ boxShadow: 'none' }}
                     placeholder="Account Number"
                     value={accountNumber}
@@ -148,7 +148,7 @@ const SyllektorEditing = ({
                 <InputGroup>
                     <Input
                         type="text"
-                        className="border-focus mb-2 mr-1"
+                        className="border-focus mr-1"
                         style={{ boxShadow: 'none' }}
                         placeholder="Branch Code"
                         value={branchCode}
@@ -157,7 +157,7 @@ const SyllektorEditing = ({
                     />
                     <Input
                         type="text"
-                        className="border-focus mb-2 ml-1"
+                        className="border-focus ml-1"
                         style={{ boxShadow: 'none' }}
                         placeholder="Bank Name"
                         value={bankName}
@@ -167,7 +167,7 @@ const SyllektorEditing = ({
                 </InputGroup>
                 <Input
                     type="text"
-                    className="border-focus mb-2"
+                    className="border-focus mb-2 mt-4"
                     style={{ boxShadow: 'none' }}
                     placeholder="Address"
                     value={address}

@@ -6,10 +6,14 @@ let database = new Database()
 export const loadSyllektions = async (dispatch) =>
     dispatch(setSyllektions((await database.getAll('syllektion')) || []))
 
-export const addSyllektor = () => {}
+export const addSyllektion = ({
+    syllektions,
+    dispatch,
+    idNumber,
+}) => {}
 
-export const editSyllektor = () => {}
+export const editSyllektion = () => {}
 
 export const completeEdit = () => {}
 
-export const removeSyllektor = () => {}
+export const removeSyllektion = () => {}

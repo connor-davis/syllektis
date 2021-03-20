@@ -2,17 +2,13 @@ import { Button, Col, Row, Table } from 'reactstrap'
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 
+import AddSyllektionModal from '../../components/modals/add.syllektion.modal'
 import { ExportCSV } from '../../util/export.functions'
 import { loadSyllektions } from './syllektions.functions'
 import moment from 'moment'
 import { selectSyllektions } from '../../util/slices/syllektions.slice'
 
 const Syllektions = () => {
-    const [firstName, setFirstName] = useState('')
-    const [lastName, setLastName] = useState('')
-    const [phoneNumber, setPhoneNumber] = useState('')
-    const [idNumber, setIdNumber] = useState('')
-
     const dispatch = useDispatch()
     const syllektions = useSelector(selectSyllektions)
 
@@ -20,8 +16,8 @@ const Syllektions = () => {
         if (syllektions) loadSyllektions(dispatch, syllektions)
     }, [])
 
-    const [dropdownOpen, setDropdownOpen] = useState(false)
-    const toggle = () => setDropdownOpen((prevState) => !prevState)
+    const [modalAdd, setModalAdd] = useState(false)
+    const toggleAdd = () => setModalAdd(!modalAdd)
 
     return (
         <>
@@ -39,29 +35,16 @@ const Syllektions = () => {
                     }}
                     className="p-2"
                 >
-                    {/* <Input
-                        type="text"
-                        className="border-focus mr-2"
-                        style={{ boxShadow: 'none' }}
-                        placeholder="Syllektor ID"
+                    <AddSyllektionModal
+                        modal={modalAdd}
+                        toggle={toggleAdd}
+                        syllektors={syllektions}
                     />
-                    <Dropdown isOpen={dropdownOpen} toggle={toggle}>
-                        <DropdownToggle
-                            tag="span"
-                            className="m-2 mr-4 p-2 text-primary text-center pointer"
-                            data-toggle="dropdown"
-                            aria-expanded={dropdownOpen}
-                            caret
-                        >
-                            Material
-                        </DropdownToggle>
-                        <DropdownMenu className="text-center p-1">
-                            <div onClick={toggle} className="p-2 pointer">
-                                ## Material ##
-                            </div>
-                        </DropdownMenu>
-                    </Dropdown> */}
-                    <Button color="primary" className="mr-2">
+                    <Button
+                        color="primary"
+                        className="mr-2"
+                        onClick={toggleAdd}
+                    >
                         Add Collection
                     </Button>
                     <ExportCSV

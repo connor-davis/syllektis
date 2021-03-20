@@ -6,7 +6,7 @@ import React from 'react'
 export const Header = () => {
     return (
         <div>
-            <Navbar color="faded" className="bg-light m-0 p-1">
+            <Navbar color="faded" className="bg-light m-0 p-1 shadow-sm">
                 <div className="me-auto"></div>
                 <Nav>
                     <NavItem>
