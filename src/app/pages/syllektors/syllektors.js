@@ -1,29 +1,21 @@
-import { Button, Col, Input, Row, Table } from 'reactstrap'
+import { Button, Col, Row, Table } from 'reactstrap'
 import { FaPen, FaTrash } from 'react-icons/fa'
-import React, { useEffect, useState } from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 import {
-    addSyllektor,
     completeEdit,
     editSyllektor,
     loadSyllektors,
     removeSyllektor,
 } from './syllektors.functions'
-import {
-    selectSyllektors,
-    setSyllektors,
-} from '../../util/slices/syllektors.slice'
 import { useDispatch, useSelector } from 'react-redux'
 
-import TableEditing from '../../components/editing/table.editing'
+import AddSyllektorModal from '../../components/modals/add.syllektor.modal'
+import { ExportCSV } from '../../util/export.functions'
+import SyllektorEditing from '../../components/modals/edit.syllektor.modal'
+import moment from 'moment'
+import { selectSyllektors } from '../../util/slices/syllektors.slice'
 
 const Syllektors = () => {
-    const [firstName, setFirstName] = useState('')
-    const [lastName, setLastName] = useState('')
-    const [phoneNumber, setPhoneNumber] = useState('')
-    const [idNumber, setIdNumber] = useState('')
-    const [accountNumber, setAccountNumber] = useState('')
-    const [branchCode, setBranchCode] = useState('')
-
     const dispatch = useDispatch()
     const syllektors = useSelector(selectSyllektors)
 
@@ -31,102 +23,50 @@ const Syllektors = () => {
         if (syllektors) loadSyllektors(dispatch)
     }, [])
 
+    const [modalAdd, setModalAdd] = useState(false)
+    const toggleAdd = () => setModalAdd(!modalAdd)
+
     return (
         <>
             <Row
                 color="faded"
-                className="p-0 m-2 align-items-center border shadow-sm"
+                light={true}
+                className="p-0 m-2 bg-light align-items-end border shadow-sm"
             >
                 <div
                     style={{
                         width: '100%',
                         display: 'flex',
                         flexDirection: 'row',
-                        justifyContent: 'space-between',
+                        justifyContent: 'flex-end',
                         alignItems: 'center',
                     }}
                     className="p-2"
                 >
-                    <Input
-                        type="text"
-                        className="border-focus w-75p mr-2"
-                        style={{ boxShadow: 'none' }}
-                        placeholder="First Name"
-                        value={firstName}
-                        onChange={({ target }) => setFirstName(target.value)}
-                    />
-                    <Input
-                        type="text"
-                        className="border-focus w-75p mr-2"
-                        style={{ boxShadow: 'none' }}
-                        placeholder="Last Name"
-                        value={lastName}
-                        onChange={({ target }) => setLastName(target.value)}
-                    />
-                    <Input
-                        type="text"
-                        className="border-focus w-50p mr-2"
-                        style={{ boxShadow: 'none' }}
-                        placeholder="Phone Number"
-                        value={phoneNumber}
-                        onChange={({ target }) => setPhoneNumber(target.value)}
-                    />
-                    <Input
-                        type="text"
-                        className="border-focus w-50p mr-2"
-                        style={{ boxShadow: 'none' }}
-                        placeholder="ID Number"
-                        value={idNumber}
-                        onChange={({ target }) => setIdNumber(target.value)}
-                    />
-                    <Input
-                        type="text"
-                        className="border-focus w-60p mr-2"
-                        style={{ boxShadow: 'none' }}
-                        placeholder="Account Number"
-                        value={accountNumber}
-                        onChange={({ target }) =>
-                            setAccountNumber(target.value)
-                        }
-                    />
-                    <Input
-                        type="text"
-                        className="border-focus w-30p mr-2"
-                        style={{ boxShadow: 'none' }}
-                        placeholder="Branch Code"
-                        value={branchCode}
-                        onChange={({ target }) => setBranchCode(target.value)}
+                    <AddSyllektorModal
+                        modal={modalAdd}
+                        toggle={toggleAdd}
+                        syllektors={syllektors}
                     />
                     <Button
                         color="primary"
                         className="mr-2"
-                        onClick={() =>
-                            addSyllektor({
-                                syllektors,
-                                setFirstName,
-                                setLastName,
-                                setPhoneNumber,
-                                setIdNumber,
-                                setAccountNumber,
-                                setBranchCode,
-                                dispatch,
-                                firstName,
-                                lastName,
-                                phoneNumber,
-                                idNumber,
-                                accountNumber,
-                                branchCode,
-                            })
-                        }
+                        onClick={toggleAdd}
                     >
-                        <div>Add</div>
+                        <div>Add Collector</div>
                     </Button>
+                    <ExportCSV
+                        csvData={syllektors}
+                        fileName={`syllektors-data-${moment().format(
+                            'DD/MM/YYYY'
+                        )}`}
+                    />
                 </div>
             </Row>
 
             <Col className="px-2 m-0">
-                <div className="border shadow-sm">
-                    <Table className="p-0 m-0" bordered hover>
+                <div className="shadow-sm bg-light">
+                    <Table className="p-0 m-0" bordered hover responsive>
                         <thead>
                             <tr className="text-center">
                                 <th>#</th>
@@ -136,25 +76,13 @@ const Syllektors = () => {
                                 <th>ID Number</th>
                                 <th>Account Number</th>
                                 <th>Branch Code</th>
-                                <th>Options</th>
+                                <th>Bank Name</th>
+                                <th>Address</th>
                             </tr>
                         </thead>
                         <tbody>
                             {syllektors.map((syllektor, index) => {
-                                return syllektor.editing === true ? (
-                                    <TableEditing
-                                        key={index}
-                                        index={index}
-                                        editingSyllektor={syllektor}
-                                        completeEdit={(edited) =>
-                                            completeEdit(
-                                                syllektors,
-                                                edited,
-                                                dispatch
-                                            )
-                                        }
-                                    />
-                                ) : (
+                                return (
                                     <tr
                                         key={index + syllektor.idNumber}
                                         className="text-center"
@@ -162,6 +90,21 @@ const Syllektors = () => {
                                             alignItems: 'center',
                                         }}
                                     >
+                                        {syllektor.editing ? (
+                                            <SyllektorEditing
+                                                key={index}
+                                                index={index}
+                                                isEditing={syllektor.editing}
+                                                editingSyllektor={syllektor}
+                                                completeEdit={(edited) =>
+                                                    completeEdit(
+                                                        syllektors,
+                                                        edited,
+                                                        dispatch
+                                                    )
+                                                }
+                                            />
+                                        ) : null}
                                         <th>{index + 1}</th>
                                         <td>{syllektor.firstName}</td>
                                         <td>{syllektor.lastName}</td>
@@ -169,6 +112,8 @@ const Syllektors = () => {
                                         <td>{syllektor.idNumber}</td>
                                         <td>{syllektor.accountNumber}</td>
                                         <td>{syllektor.branchCode}</td>
+                                        <td>{syllektor.bankName}</td>
+                                        <td>{syllektor.address}</td>
                                         <td>
                                             <Row
                                                 tag="div"

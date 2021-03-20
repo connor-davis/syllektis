@@ -60,6 +60,8 @@ class Database {
         let documents = await database.allDocs({
             limit: this._pageSize,
             skip: this._offset,
+            startkey: partition,
+            endkey: `${partition}\ufff0`,
         })
 
         let bulk = await database.bulkGet({
@@ -70,10 +72,7 @@ class Database {
             ],
             docs: [
                 ...documents.rows.map((row) => {
-                    if (
-                        row.id !== undefined &&
-                        row.id.split(':')[0] === partition
-                    ) {
+                    if (!row.value.deleted) {
                         if (this._offset > documents.rows) this._offset = 0
                         this._offset += this._pageSize
 
@@ -84,6 +83,7 @@ class Database {
         })
 
         return bulk.results.map((document) => {
+            console.log(document)
             return {
                 ...document.docs.map((doc) => {
                     return doc.ok

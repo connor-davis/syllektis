@@ -1,17 +1,10 @@
-import {
-    Button,
-    Col,
-    Dropdown,
-    DropdownMenu,
-    DropdownToggle,
-    Input,
-    Row,
-    Table,
-} from 'reactstrap'
+import { Button, Col, Row, Table } from 'reactstrap'
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 
+import { ExportCSV } from '../../util/export.functions'
 import { loadSyllektions } from './syllektions.functions'
+import moment from 'moment'
 import { selectSyllektions } from '../../util/slices/syllektions.slice'
 
 const Syllektions = () => {
@@ -34,20 +27,19 @@ const Syllektions = () => {
         <>
             <Row
                 color="faded"
-                light
-                className="p-0 m-2 align-items-center border shadow-sm"
+                className="p-0 m-2 align-items-center bg-light border shadow-sm"
             >
                 <div
                     style={{
                         width: '100%',
                         display: 'flex',
                         flexDirection: 'row',
-                        justifyContent: 'space-between',
+                        justifyContent: 'flex-end',
                         alignItems: 'center',
                     }}
                     className="p-2"
                 >
-                    <Input
+                    {/* <Input
                         type="text"
                         className="border-focus mr-2"
                         style={{ boxShadow: 'none' }}
@@ -68,17 +60,22 @@ const Syllektions = () => {
                                 ## Material ##
                             </div>
                         </DropdownMenu>
-                    </Dropdown>
+                    </Dropdown> */}
                     <Button color="primary" className="mr-2">
-                        Submit
+                        Add Collection
                     </Button>
-                    <Button color="primary">Export</Button>
+                    <ExportCSV
+                        csvData={syllektions}
+                        fileName={`syllektions-data-${moment().format(
+                            'DD/MM/YYYY'
+                        )}`}
+                    />
                 </div>
             </Row>
 
             <Col className="px-2 m-0">
-                <div className="border shadow-sm">
-                    <Table>
+                <div className="shadow-sm bg-light">
+                    <Table className="p-0 m-0" bordered hover responsive>
                         <thead>
                             <tr>
                                 <th>#</th>

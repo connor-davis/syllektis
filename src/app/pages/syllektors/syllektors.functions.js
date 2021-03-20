@@ -15,6 +15,8 @@ export const addSyllektor = ({
     setIdNumber,
     setAccountNumber,
     setBranchCode,
+    setBankName,
+    setAddress,
     dispatch,
     firstName,
     lastName,
@@ -22,6 +24,8 @@ export const addSyllektor = ({
     idNumber,
     accountNumber,
     branchCode,
+    bankName,
+    address,
 }) => {
     if (
         firstName !== '' &&
@@ -29,7 +33,9 @@ export const addSyllektor = ({
         phoneNumber !== '' &&
         idNumber !== '' &&
         accountNumber !== '' &&
-        branchCode !== ''
+        branchCode !== '' &&
+        bankName !== '' &&
+        address !== ''
     ) {
         setFirstName('')
         setLastName('')
@@ -37,6 +43,8 @@ export const addSyllektor = ({
         setIdNumber('')
         setAccountNumber('')
         setBranchCode('')
+        setBankName('')
+        setAddress('')
 
         let data = {
             firstName,
@@ -45,6 +53,8 @@ export const addSyllektor = ({
             idNumber,
             accountNumber,
             branchCode,
+            bankName,
+            address,
             editing: false,
             _id: `syllektor:${v4()}`,
         }

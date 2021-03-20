@@ -31,8 +31,6 @@ function createWindow() {
 
     mainWindow.loadURL(startUrl)
 
-    mainWindow.webContents.openDevTools()
-
     mainWindow.on('closed', () => {
         mainWindow = null
     })

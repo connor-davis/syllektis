@@ -1,18 +1,16 @@
 import './index.scss'
 
 import App from './App'
-import {Provider} from "react-redux";
+import { Provider } from 'react-redux'
 import React from 'react'
 import ReactDOM from 'react-dom'
 import reportWebVitals from './reportWebVitals'
 import store from './app/util/store'
 
 ReactDOM.render(
-    <React.StrictMode>
-        <Provider store={store}>
-            <App />
-        </Provider>
-    </React.StrictMode>,
+    <Provider store={store}>
+        <App />
+    </Provider>,
     document.getElementById('root')
 )
 

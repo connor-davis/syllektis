@@ -6,27 +6,20 @@ import React from 'react'
 export const Header = () => {
     return (
         <div>
-            <Navbar color="faded" light>
+            <Navbar color="faded" className="bg-light m-0 p-1">
                 <div className="me-auto"></div>
                 <Nav>
                     <NavItem>
-                        <Link to="/">
-                            <Button outline color="primary" className="mr-2">
-                                Dashboard
-                            </Button>
-                        </Link>
-                    </NavItem>
-                    <NavItem>
                         <Link to="/syllektions">
                             <Button outline color="primary" className="mr-2">
-                                Syllektions
+                                Collections
                             </Button>
                         </Link>
                     </NavItem>
                     <NavItem>
                         <Link to="/syllektors">
                             <Button outline color="primary" className="mr-2">
-                                Syllektors
+                                Collectors
                             </Button>
                         </Link>
                     </NavItem>

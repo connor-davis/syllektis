@@ -11,8 +11,18 @@ $font-size-sm: 0.8rem;
     font-family: Arial, Helvetica, sans-serif;
 }
 
-.border-focus {
-    border: none;
+.app {
+    z-index: 1;
+}
+
+.background-paper {
+    position: absolute;
+    top: 0px;
+    bottom: 0px;
+    left: 0px;
+    right: 0px;
+    background: $gray-300;
+    z-index: -1;
 }
 
 .border-focus:focus {
