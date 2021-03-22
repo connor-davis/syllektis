@@ -137,7 +137,7 @@ let SyllektionEditing = ({
                     setVisible(false)
                 }}
             >
-                Add Collector
+                Edit Collection
             </ModalHeader>
             <ModalBody>
                 <Alert color="danger" isOpen={visible} toggle={toggleAlert}>
