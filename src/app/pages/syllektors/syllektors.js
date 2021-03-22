@@ -10,7 +10,7 @@ import {
 import { useDispatch, useSelector } from 'react-redux'
 
 import AddSyllektorModal from '../../components/modals/add.syllektor.modal'
-import { ExportCSV } from '../../util/export.functions'
+import { ExportSyllektorsCSV } from '../../util/export.functions'
 import SyllektorEditing from '../../components/modals/edit.syllektor.modal'
 import moment from 'moment'
 import { selectSyllektors } from '../../util/slices/syllektors.slice'
@@ -55,7 +55,7 @@ const Syllektors = () => {
                     >
                         <div>Add Collector</div>
                     </Button>
-                    <ExportCSV
+                    <ExportSyllektorsCSV
                         csvData={syllektors}
                         fileName={`syllektors-data-${moment().format(
                             'DD/MM/YYYY'
@@ -178,7 +178,7 @@ const Syllektors = () => {
                         />
                     ) : (
                         <Row className="justify-content-center p-0 pt-2 m-0">
-                            <h5>No Syllektors</h5>
+                            <h5>No Collectors</h5>
                         </Row>
                     )}
                 </div>

@@ -16,24 +16,32 @@ import {
 } from 'reactstrap'
 import { FaMinus, FaPlus, FaSearch } from 'react-icons/fa'
 import React, { useEffect, useState } from 'react'
+import {
+    addSyllektion,
+    completeEdit,
+} from '../../pages/syllektions/syllektions.functions'
 import { useDispatch, useSelector } from 'react-redux'
 
-import { addSyllektion } from '../../pages/syllektions/syllektions.functions'
 import { loadMaterials } from '../../pages/materials/materials.functions'
 import { loadSyllektors } from '../../pages/syllektors/syllektors.functions'
 import { selectMaterials } from '../../util/slices/materials.slice'
 import { selectSyllektors } from '../../util/slices/syllektors.slice'
 
-let AddSyllektionModal = ({ modal, toggle, syllektions }) => {
+let SyllektionEditing = ({
+    index,
+    isEditing = false,
+    editingSyllektion,
+    completeEdit,
+}) => {
     let dispatch = useDispatch()
 
     let syllektors = useSelector(selectSyllektors)
     let materials = useSelector(selectMaterials)
 
-    const [idNumber, setIdNumber] = useState('ID Number')
+    const [idNumber, setIdNumber] = useState(editingSyllektion.idNumber)
     const [idNumberSearch, setIdNumberSearch] = useState('')
-    const [material, setMaterial] = useState('Material')
-    const [mass, setMass] = useState('')
+    const [material, setMaterial] = useState(editingSyllektion.material)
+    const [mass, setMass] = useState(editingSyllektion.mass)
 
     const [dropdownOpen, setDropdownOpen] = useState(false)
     const toggleDropdown = () => {
@@ -47,6 +55,9 @@ let AddSyllektionModal = ({ modal, toggle, syllektions }) => {
 
     const [visible, setVisible] = useState(false)
     const toggleAlert = () => setVisible(!visible)
+
+    const [modal, setModal] = useState(isEditing)
+    const toggle = () => setModal(!modal)
 
     let toggleModal = () => {
         toggle()
@@ -126,7 +137,7 @@ let AddSyllektionModal = ({ modal, toggle, syllektions }) => {
                     setVisible(false)
                 }}
             >
-                Add Collection
+                Add Collector
             </ModalHeader>
             <ModalBody>
                 <Alert color="danger" isOpen={visible} toggle={toggleAlert}>
@@ -236,7 +247,7 @@ let AddSyllektionModal = ({ modal, toggle, syllektions }) => {
                             <Button
                                 outline
                                 color="primary"
-                                className="m-0 p-0 px-2 py-1"
+                                className="m-0 mr-2 p-0 px-2 py-1"
                                 style={{
                                     height: 'auto',
                                     fontSize: 11,
@@ -254,9 +265,9 @@ let AddSyllektionModal = ({ modal, toggle, syllektions }) => {
                             <Col className="text-center">
                                 <Input
                                     type="number"
-                                    className="border-focus text-center"
+                                    className="border-focus ml-1"
                                     style={{ boxShadow: 'none' }}
-                                    placeholder="Mass (kg)"
+                                    placeholder="Mass"
                                     value={mass}
                                     onChange={({ target }) => {
                                         setMass(target.value)
@@ -291,21 +302,14 @@ let AddSyllektionModal = ({ modal, toggle, syllektions }) => {
                         if (
                             idNumber !== '' &&
                             material !== '' &&
-                            material !== 'Material' &&
                             mass !== ('' || 0)
                         ) {
-                            addSyllektion({
-                                syllektions,
-                                dispatch,
+                            completeEdit({
+                                ...editingSyllektion,
                                 idNumber,
-                                materials,
                                 material,
                                 mass,
-                                setIdNumber,
-                                setMaterial,
-                                setMass,
-                            })
-
+                            }, materials)
                             toggleModal()
                             setVisible(false)
                         } else {
@@ -329,4 +333,4 @@ let AddSyllektionModal = ({ modal, toggle, syllektions }) => {
     )
 }
 
-export default AddSyllektionModal
+export default SyllektionEditing

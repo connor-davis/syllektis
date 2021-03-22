@@ -59,8 +59,10 @@ export const addSyllektor = ({
             _id: `syllektor:${v4()}`,
         }
 
+        let iter = syllektors !== undefined ? [...syllektors] : [...[]]
+
         database.add(data, (added) =>
-            dispatch(setSyllektors([...syllektors, { ...data, ...added }]))
+            dispatch(setSyllektors([...iter, { ...data, ...added }]))
         )
     }
 }
@@ -79,7 +81,6 @@ export const editSyllektor = (syllektors, syllektor, dispatch) => {
 }
 
 export const completeEdit = (syllektors, syllektor, dispatch) => {
-    console.log(syllektor)
     database.update({ ...syllektor, editing: false }, (updated) =>
         dispatch(
             setSyllektors([

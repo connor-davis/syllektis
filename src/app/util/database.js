@@ -82,14 +82,15 @@ class Database {
             ],
         })
 
-        return bulk.results.map((document) => {
-            console.log(document)
+        let data = bulk.results.map((document) => {
             return {
                 ...document.docs.map((doc) => {
                     return doc.ok
                 })[0],
             }
         })
+
+        return data
     }
 
     async remove(doc, callback) {
