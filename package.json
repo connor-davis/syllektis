@@ -11,6 +11,7 @@
         "axios": "^0.21.1",
         "bootstrap": "^4.6.0",
         "bootswatch": "^4.6.0",
+        "electron-build": "^0.0.3",
         "electron-dialogs": "^1.4.0",
         "electron-log": "^4.3.2",
         "electron-updater": "^4.3.8",
@@ -40,7 +41,7 @@
         "web-vitals": "^1.0.1",
         "xlsx": "^0.16.9"
     },
-    "main": "electron/desktop.js",
+    "main": "./src/desktop.js",
     "homepage": "./",
     "scripts": {
         "start": "react-scripts start",
@@ -53,6 +54,7 @@
         "prod": "npm run build && npm run electron",
         "pack": "electron-builder --dir",
         "dist": "electron-builder --x64 --mac",
+        "gh-pub-win": "electron-builder --x64 --win -p always",
         "gh-publish-win": "npm run build && electron-builder --x64 --win -p always",
         "gh-publish-mac": "npm run build && electron-builder --x64 --mac -p always"
     },
@@ -80,5 +82,14 @@
         "electron": "^12.0.1",
         "electron-builder": "^22.10.5",
         "foreman": "^3.0.1"
+    },
+    "build": {
+        "appId": "tech.connordavis.syllektis",
+        "extraMetadata": {
+            "main": "./desktop.js",
+            "files": [
+                "./preload.js"
+            ]
+        }
     }
 }
