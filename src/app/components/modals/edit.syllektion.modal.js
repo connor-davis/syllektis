@@ -129,12 +129,30 @@ let SyllektionEditing = ({
         )
     }
 
+    const completeEditSyllektion = () => {
+        completeEdit(
+            {
+                ...editingSyllektion,
+                idNumber,
+                material,
+                mass,
+            },
+            materials
+        )
+        toggleModal()
+        setVisible(false)
+    }
+
     return (
-        <Modal isOpen={modal} toggle={toggleModal}>
+        <Modal
+            isOpen={modal}
+            toggle={() => {
+                completeEditSyllektion()
+            }}
+        >
             <ModalHeader
                 toggle={() => {
-                    toggleModal()
-                    setVisible(false)
+                    completeEditSyllektion()
                 }}
             >
                 Edit Collection
@@ -304,14 +322,7 @@ let SyllektionEditing = ({
                             material !== '' &&
                             mass !== ('' || 0)
                         ) {
-                            completeEdit({
-                                ...editingSyllektion,
-                                idNumber,
-                                material,
-                                mass,
-                            }, materials)
-                            toggleModal()
-                            setVisible(false)
+                            completeEditSyllektion()
                         } else {
                             setVisible(true)
                         }
@@ -322,8 +333,7 @@ let SyllektionEditing = ({
                 <Button
                     color="secondary"
                     onClick={() => {
-                        toggleModal()
-                        setVisible(false)
+                        completeEditSyllektion()
                     }}
                 >
                     Cancel

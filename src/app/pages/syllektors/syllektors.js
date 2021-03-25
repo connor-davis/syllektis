@@ -74,9 +74,9 @@ const Syllektors = () => {
                                 <th>Last Name</th>
                                 <th>Phone Number</th>
                                 <th>ID Number</th>
-                                <th>Account Number</th>
+                                {/* <th>Account Number</th>
                                 <th>Branch Code</th>
-                                <th>Bank Name</th>
+                                <th>Bank Name</th> */}
                                 <th>Address</th>
                             </tr>
                         </thead>
@@ -110,9 +110,9 @@ const Syllektors = () => {
                                         <td>{syllektor.lastName}</td>
                                         <td>{syllektor.phoneNumber}</td>
                                         <td>{syllektor.idNumber}</td>
-                                        <td>{syllektor.accountNumber}</td>
+                                        {/* <td>{syllektor.accountNumber}</td>
                                         <td>{syllektor.branchCode}</td>
-                                        <td>{syllektor.bankName}</td>
+                                        <td>{syllektor.bankName}</td> */}
                                         <td>{syllektor.address}</td>
                                         <td>
                                             <Row

@@ -44,52 +44,38 @@ const SyllektorEditing = ({
     const [modal, setModal] = useState(isEditing)
     const toggle = () => setModal(!modal)
 
+    const completeEditSyllektor = () => {
+        setCity('')
+        setPostalCode('')
+        setProvince('')
+
+        completeEdit({
+            ...editingSyllektor,
+            firstName,
+            lastName,
+            phoneNumber,
+            idNumber,
+            accountNumber,
+            branchCode,
+            bankName,
+            address: `${address}, ${city}, ${postalCode}, ${province}`,
+            editing: false,
+        })
+
+        toggle()
+        setVisible(false)
+    }
+
     return (
         <Modal
             isOpen={modal}
             toggle={() => {
-                setCity('')
-                setPostalCode('')
-                setProvince('')
-
-                completeEdit({
-                    ...editingSyllektor,
-                    firstName,
-                    lastName,
-                    phoneNumber,
-                    idNumber,
-                    accountNumber,
-                    branchCode,
-                    bankName,
-                    address: `${address}, ${city}, ${postalCode}, ${province}`,
-                    editing: false,
-                })
-
-                toggle()
-                setVisible(false)
+                completeEditSyllektor()
             }}
         >
             <ModalHeader
                 toggle={() => {
-                    setCity('')
-                    setPostalCode('')
-                    setProvince('')
-
-                    completeEdit({
-                        ...editingSyllektor,
-                        firstName,
-                        lastName,
-                        phoneNumber,
-                        idNumber,
-                        accountNumber,
-                        branchCode,
-                        bankName,
-                        address: `${address}, ${city}, ${postalCode}, ${province}`,
-                        editing: false,
-                    })
-
-                    toggle()
-                    setVisible(false)
+                    completeEditSyllektor()
                 }}
             >
                 Edit Collector
@@ -218,24 +204,7 @@ const SyllektorEditing = ({
                             bankName !== '' &&
                             address !== ''
                         ) {
-                            setCity('')
-                            setPostalCode('')
-                            setProvince('')
-
-                            completeEdit({
-                                ...editingSyllektor,
-                                firstName,
-                                lastName,
-                                phoneNumber,
-                                idNumber,
-                                accountNumber,
-                                branchCode,
-                                bankName,
-                                address: `${address}, ${city}, ${postalCode}, ${province}`,
-                                editing: false,
-                            })
-                            toggle()
-                            setVisible(false)
+                            completeEditSyllektor()
                         } else {
                             setVisible(true)
                         }
@@ -246,24 +215,7 @@ const SyllektorEditing = ({
                 <Button
                     color="secondary"
                     onClick={() => {
-                        setCity('')
-                        setPostalCode('')
-                        setProvince('')
-
-                        completeEdit({
-                            ...editingSyllektor,
-                            firstName,
-                            lastName,
-                            phoneNumber,
-                            idNumber,
-                            accountNumber,
-                            branchCode,
-                            bankName,
-                            address: `${address}, ${city}, ${postalCode}, ${province}`,
-                            editing: false,
-                        })
-                        toggle()
-                        setVisible(false)
+                        completeEditSyllektor()
                     }}
                 >
                     Cancel

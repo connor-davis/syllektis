@@ -34,12 +34,27 @@ let MaterialEditing = ({
         toggle()
     }
 
+    const completeEditMaterial = () => {
+        completeEdit({
+            ...editingMaterial,
+            name,
+            type,
+            value,
+        })
+        toggleModal()
+        setVisible(false)
+    }
+
     return (
-        <Modal isOpen={modal} toggle={toggleModal}>
+        <Modal
+            isOpen={modal}
+            toggle={() => {
+                completeEditMaterial()
+            }}
+        >
             <ModalHeader
                 toggle={() => {
-                    toggleModal()
-                    setVisible(false)
+                    completeEditMaterial()
                 }}
             >
                 Edit Material
@@ -87,14 +102,7 @@ let MaterialEditing = ({
                     color="primary"
                     onClick={() => {
                         if (name !== '' && type !== '' && value !== ('' || 0)) {
-                            completeEdit({
-                                ...editingMaterial,
-                                name,
-                                type,
-                                value,
-                            })
-                            toggleModal()
-                            setVisible(false)
+                            completeEditMaterial()
                         } else {
                             setVisible(true)
                         }
@@ -105,8 +113,7 @@ let MaterialEditing = ({
                 <Button
                     color="secondary"
                     onClick={() => {
-                        toggleModal()
-                        setVisible(false)
+                        completeEditMaterial()
                     }}
                 >
                     Cancel
