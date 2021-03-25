@@ -1,7 +1,7 @@
 {
     "name": "syllektis",
     "description": "This project was started due to the lack of actual value to collecting recyclable waste.",
-    "version": "0.1.0",
+    "version": "0.1.2",
     "private": true,
     "dependencies": {
         "@hyperspace/cli": "^1.5.0",
