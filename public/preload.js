@@ -1,5 +1,4 @@
 const { contextBridge, ipcRenderer } = require('electron')
-const dialogs = require('electron-dialogs')
 
 function callIpcRenderer(method, channel, ...args) {
     if (typeof channel !== 'string' || !channel.startsWith('API_')) {
@@ -28,7 +27,5 @@ contextBridge.exposeInMainWorld('ipcRenderer', {
     send: (...args) => callIpcRenderer('send', ...args),
     on: (...args) => callIpcRenderer('on', ...args),
 })
-
-dialogs.renderer('app-updates')
 
 contextBridge.exposeInMainWorld('POUCH_PASSWORD', process.env.POUCH_PASSWORD)

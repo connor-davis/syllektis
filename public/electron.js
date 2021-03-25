@@ -1,13 +1,10 @@
 const { app, BrowserWindow, ipcMain } = require('electron')
-const log = require('electron-log')
 const { autoUpdater } = require('electron-updater')
 
 const path = require('path')
 const url = require('url')
 
-let mainWindow, updateDialog, updateChangeStatus, updateFinish
-
-const { main } = require('electron-dialogs')
+let mainWindow
 
 function createWindow() {
     mainWindow = new BrowserWindow({
@@ -38,8 +35,6 @@ function createWindow() {
         mainWindow = null
     })
 
-    updateDialog = main(mainWindow, 'app-updates')
-
     autoUpdater.checkForUpdates()
 }
 
@@ -64,53 +59,26 @@ app.on('activate', () => {
 //-------------------------------------------------------------------
 
 autoUpdater.on('checking-for-update', () => {
-    log.info('checking for update')
+    
 })
 
 autoUpdater.on('update-available', (info) => {
-    log.info('update available')
-    updateDialog.confirm(
-        {
-            title: 'Update Available',
-            message:
-                'There is an update available for this application. Would you like to download it?',
-            confirmText: 'Yes',
-            cancelText: 'Cancel',
-        },
-        (res) => {
-            if (!res.canceled) {
-                autoUpdater.downloadUpdate()
-
-                const { changeStatus, finish } = dialogs.progress({
-                    title: 'Downloading Update',
-                    message: 'Please be patient while we download your update.',
-                    autoClose: false,
-                    changeableBar: true,
-                })
-
-                updateChangeStatus = changeStatus
-                updateFinish = finish
-            }
-        }
-    )
+    autoUpdater.downloadUpdate()
 })
 
 autoUpdater.on('update-not-available', (info) => {
-    log.info('update not available')
+
 })
 
 autoUpdater.on('error', (err) => {
-    log.info('update error')
-    log.error(err)
+
 })
 
 autoUpdater.on('download-progress', (progressObj) => {
-    updateChangeStatus({ message: '', percentage: 10 })
-    updateFinish('Update Finished')
+
 })
 
 autoUpdater.on('update-downloaded', (info) => {
-    log.info('update downloaded')
     setTimeout(() => {
         autoUpdater.quitAndInstall()
     }, 500)
