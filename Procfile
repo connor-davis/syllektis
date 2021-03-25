@@ -1,2 +1,2 @@
 react: npm start
-electron: node electron/desktop-wait
+electron: node public/electron-wait

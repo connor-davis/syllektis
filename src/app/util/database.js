@@ -1,4 +1,6 @@
 import PouchDB from 'pouchdb'
+import { setLoading } from './slices/loading.slice'
+import store from './store'
 
 PouchDB.plugin(require('pouchdb-upsert'))
 
@@ -16,6 +18,8 @@ class Database {
         console.log(await database.info())
         console.log('----------------------------------')
 
+        store.dispatch(setLoading(true))
+
         database.replicate
             .from('http://syllektis.connordavis.tech:5984/syllektis-database', {
                 auth: {
@@ -23,7 +27,13 @@ class Database {
                     password: window.POUCH_PASSWORD,
                 },
             })
-            .then(() => console.log('Database Replicated.'))
+            .then(() => {
+                console.log('Database Replicated.')
+
+                setTimeout(() => {
+                    store.dispatch(setLoading(false))
+                }, 1000)
+            })
     }
 
     async add(doc, callback) {
