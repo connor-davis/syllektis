@@ -58,7 +58,8 @@ function App() {
                                             left: '50%',
                                             transform: 'translate(-50%, -50%)',
                                         }}
-                                    ></div>
+                                        tag="h4"
+                                    >Welcome to Syllektis.</div>
                                 )}
                             />
                             <Route
