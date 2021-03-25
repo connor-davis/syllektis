@@ -9,17 +9,13 @@ import Materials from './app/pages/materials/materials'
 import { NotFound } from './app/pages/404/NotFound'
 import Syllektions from './app/pages/syllektions/syllektions'
 import Syllektors from './app/pages/syllektors/syllektors'
-import dialogs from 'electron-dialogs'
 
 let database = new Database()
-
 
 function App() {
     useEffect(() => {
         database.backup()
         database.init()
-
-        dialogs.renderer('app-updates')
     }, [])
 
     return (

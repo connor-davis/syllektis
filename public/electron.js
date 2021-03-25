@@ -16,18 +16,17 @@ function createWindow() {
         height: 720,
         autoHideMenuBar: true,
         webPreferences: {
-            nodeIntegration: true, // is default value after Electron v5
+            nodeIntegration: false, // is default value after Electron v5
             contextIsolation: true, // protect against prototype pollution
-            enableRemoteModule: true, // turn off remote
+            enableRemoteModule: false, // turn off remote
             preload: path.join(__dirname, 'preload.js'), // use a preload script
         },
-        show: false,
     })
 
     const startUrl =
         process.env.ELECTRON_START_URL ||
         url.format({
-            pathname: path.join(__dirname, '/index.html'),
+            pathname: path.join(__dirname, 'index.html'),
             protocol: 'file:',
             slashes: true,
             hash: '#',

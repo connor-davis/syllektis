@@ -1,5 +1,6 @@
 {
     "name": "syllektis",
+    "description": "This project was started due to the lack of actual value to collecting recyclable waste.",
     "version": "0.1.0",
     "private": true,
     "dependencies": {
@@ -41,22 +42,21 @@
         "web-vitals": "^1.0.1",
         "xlsx": "^0.16.9"
     },
-    "main": "./src/desktop.js",
+    "main": "public/electron.js",
     "homepage": "./",
     "scripts": {
         "start": "react-scripts start",
         "build": "react-scripts build",
         "test": "react-scripts test --env=jsdom",
         "eject": "react-scripts eject",
-        "electron": "electron .",
+        "electron": "electron build/electron.js",
         "electron-dev": "set ELECTRON_START_URL=http://localhost:5000 && electron .",
         "dev": "nf start",
         "prod": "npm run build && npm run electron",
         "pack": "electron-builder --dir",
-        "dist": "electron-builder --x64 --mac",
-        "gh-pub-win": "electron-builder --x64 --win -p always",
-        "gh-publish-win": "npm run build && electron-builder --x64 --win -p always",
-        "gh-publish-mac": "npm run build && electron-builder --x64 --mac -p always"
+        "dist": "electron-builder --win",
+        "gh-publish-win": "npm run build && electron-builder --win -p always",
+        "gh-publish-mac": "npm run build && electron-builder --mac -p always"
     },
     "eslintConfig": {
         "extends": [
@@ -85,11 +85,19 @@
     },
     "build": {
         "appId": "tech.connordavis.syllektis",
-        "extraMetadata": {
-            "main": "./desktop.js",
-            "files": [
-                "./preload.js"
-            ]
+        "productName": "Syllektis",
+        "target": "NSIS",
+        "win": {
+            "icon": "https://cdn2.iconfinder.com/data/icons/designer-skills/128/react-256.png"
+        },
+        "files": [
+            "build/**/*",
+            "!node_modules"
+        ],
+        "asar": false,
+        "nsis": {
+            "allowToChangeInstallationDirectory": true,
+            "oneClick": false
         }
     }
 }

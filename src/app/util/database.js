@@ -17,7 +17,7 @@ class Database {
         console.log('----------------------------------')
 
         database.replicate
-            .from('http://41.133.116.6:5984/syllektis-database', {
+            .from('http://syllektis.connordavis.tech:5984/syllektis-database', {
                 auth: {
                     username: 'syllektis',
                     password: window.POUCH_PASSWORD,
@@ -104,7 +104,7 @@ class Database {
 
     async backup(callback) {
         database.replicate
-            .to('http://41.133.116.6:5984/syllektis-database', {
+            .to('http://syllektis.connordavis.tech:5984/syllektis-database', {
                 auth: {
                     username: 'syllektis',
                     password: window.POUCH_PASSWORD,
