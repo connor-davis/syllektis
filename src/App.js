@@ -47,7 +47,20 @@ function App() {
                         </div>
                     ) : (
                         <Switch>
-                            <Route exact path="/" />
+                            <Route
+                                exact
+                                path="/"
+                                component={() => (
+                                    <div
+                                        style={{
+                                            position: 'absolute',
+                                            top: '50%',
+                                            left: '50%',
+                                            transform: 'translate(-50%, -50%)',
+                                        }}
+                                    ></div>
+                                )}
+                            />
                             <Route
                                 path="/syllektions"
                                 component={Syllektions}
