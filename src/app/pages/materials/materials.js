@@ -110,7 +110,7 @@ const Materials = () => {
                                         <th>{index + 1}</th>
                                         <td>{material.name}</td>
                                         <td>{material.type}</td>
-                                        <td>{material.value}</td>
+                                        <td>R {material.value}</td>
                                         <td>
                                             <Row
                                                 tag="div"

@@ -86,7 +86,7 @@ export const ExportMaterialsCSV = ({ csvData, fileName }) => {
                 return {
                     'Material Name': data.name,
                     'Material Type': data.type,
-                    'Material Value (R/kg)': data.value,
+                    'Material Value (R/kg)': `R ${data.value}`,
                 }
             })
         )
