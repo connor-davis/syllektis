@@ -22,11 +22,13 @@ import { addSyllektion } from '../../pages/syllektions/syllektions.functions'
 import { loadMaterials } from '../../pages/materials/materials.functions'
 import { loadSyllektors } from '../../pages/syllektors/syllektors.functions'
 import { selectMaterials } from '../../util/slices/materials.slice'
+import { selectSyllektions } from '../../util/slices/syllektions.slice'
 import { selectSyllektors } from '../../util/slices/syllektors.slice'
 
-let AddSyllektionModal = ({ modal, toggle, syllektions }) => {
+let AddSyllektionModal = ({ modal, toggle }) => {
     let dispatch = useDispatch()
 
+    let syllektions = useSelector(selectSyllektions)
     let syllektors = useSelector(selectSyllektors)
     let materials = useSelector(selectMaterials)
 
@@ -139,15 +141,15 @@ let AddSyllektionModal = ({ modal, toggle, syllektions }) => {
                         alignItems: 'center',
                     }}
                 >
-                    <Col md={7} className="m-0 p-0">
+                    <Col md={6} className="mb-2">
                         <Dropdown
                             isOpen={syllektorsDropdownOpen}
                             toggle={toggleSyllektorsDropdown}
-                            className="text-primary pointer"
+                            className="pointer"
                         >
                             <DropdownToggle
                                 tag="span"
-                                className="text-primary pointer"
+                                className="pointer btn btn-block btn-outline-primary"
                                 data-toggle="dropdown"
                                 aria-expanded={syllektorsDropdownOpen}
                                 caret
@@ -168,7 +170,7 @@ let AddSyllektionModal = ({ modal, toggle, syllektions }) => {
                                         type="text"
                                         className="border-focus m-0 py-0"
                                         style={{ boxShadow: 'none' }}
-                                        placeholder="Syllektor ID"
+                                        placeholder="Collector ID"
                                         value={idNumberSearch}
                                         onChange={({ target }) =>
                                             setIdNumberSearch(target.value)
@@ -180,21 +182,18 @@ let AddSyllektionModal = ({ modal, toggle, syllektions }) => {
                             </DropdownMenu>
                         </Dropdown>
                     </Col>
-                    <Col md={5} className="m-0 p-0">
+                    <Col md={6} className="mb-2">
                         <Dropdown
                             isOpen={dropdownOpen}
                             toggle={toggleDropdown}
-                            className="text-primary pointer"
+                            className="pointer"
                         >
                             <DropdownToggle
                                 tag="span"
-                                className="text-primary pointer"
+                                className="pointer btn btn-block btn-outline-primary"
                                 data-toggle="dropdown"
                                 aria-expanded={dropdownOpen}
                                 caret
-                                style={{
-                                    width: '100px',
-                                }}
                             >
                                 {material}
                             </DropdownToggle>
@@ -209,12 +208,13 @@ let AddSyllektionModal = ({ modal, toggle, syllektions }) => {
                     style={{
                         display: 'flex',
                         flexDirection: 'row',
+                        justifyContent: 'flex-end',
                         alignItems: 'center',
                     }}
                 >
-                    <Col md={7} className="m-0 p-0">
+                    {/* <Col md={4}>
                         <div
-                            className="mr-4"
+                            className="mr-1"
                             style={{
                                 display: 'flex',
                                 flexDirection: 'row',
@@ -223,10 +223,9 @@ let AddSyllektionModal = ({ modal, toggle, syllektions }) => {
                         >
                             Mass (kg):{' '}
                         </div>
-                    </Col>
-                    <Col md={5} className="m-0 p-0">
+                    </Col> */}
+                    <Col md={6}>
                         <div
-                            className="mt-2"
                             style={{
                                 display: 'flex',
                                 flexDirection: 'row',

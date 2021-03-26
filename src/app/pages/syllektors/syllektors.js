@@ -18,10 +18,20 @@ import { selectSyllektors } from '../../util/slices/syllektors.slice'
 const Syllektors = () => {
     const dispatch = useDispatch()
     const syllektors = useSelector(selectSyllektors)
+    const [sortedSyllektors, setSortedSyllektors] = useState([])
 
     useEffect(() => {
         if (syllektors) loadSyllektors(dispatch)
     }, [])
+
+    useEffect(() => {
+        let _sorted = [...syllektors].sort((_a, _b) => {
+            if (_a.lastName > _b.lastName) return -1
+            if (_a.lastName < _b.lastName) return 1
+            return 0
+        })
+        setSortedSyllektors(_sorted)
+    }, [syllektors])
 
     const [modalAdd, setModalAdd] = useState(false)
     const toggleAdd = () => setModalAdd(!modalAdd)
@@ -43,11 +53,7 @@ const Syllektors = () => {
                     }}
                     className="p-2"
                 >
-                    <AddSyllektorModal
-                        modal={modalAdd}
-                        toggle={toggleAdd}
-                        syllektors={syllektors}
-                    />
+                    <AddSyllektorModal modal={modalAdd} toggle={toggleAdd} />
                     <Button
                         color="primary"
                         className="mr-2"
@@ -56,7 +62,7 @@ const Syllektors = () => {
                         <div>Add Collector</div>
                     </Button>
                     <ExportSyllektorsCSV
-                        csvData={syllektors}
+                        csvData={sortedSyllektors}
                         fileName={`syllektors-data-${moment().format(
                             'DD/MM/YYYY'
                         )}`}
@@ -81,7 +87,7 @@ const Syllektors = () => {
                             </tr>
                         </thead>
                         <tbody>
-                            {syllektors.map((syllektor, index) => {
+                            {sortedSyllektors.map((syllektor, index) => {
                                 return (
                                     <tr
                                         key={index + syllektor.idNumber}

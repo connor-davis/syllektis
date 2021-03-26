@@ -168,15 +168,15 @@ let SyllektionEditing = ({
                         alignItems: 'center',
                     }}
                 >
-                    <Col md={7} className="m-0 p-0">
+                    <Col md={6} className="mb-2">
                         <Dropdown
                             isOpen={syllektorsDropdownOpen}
                             toggle={toggleSyllektorsDropdown}
-                            className="text-primary pointer"
+                            className="pointer"
                         >
                             <DropdownToggle
                                 tag="span"
-                                className="text-primary pointer"
+                                className="pointer btn btn-block btn-outline-primary"
                                 data-toggle="dropdown"
                                 aria-expanded={syllektorsDropdownOpen}
                                 caret
@@ -197,7 +197,7 @@ let SyllektionEditing = ({
                                         type="text"
                                         className="border-focus m-0 py-0"
                                         style={{ boxShadow: 'none' }}
-                                        placeholder="Syllektor ID"
+                                        placeholder="Collector ID"
                                         value={idNumberSearch}
                                         onChange={({ target }) =>
                                             setIdNumberSearch(target.value)
@@ -209,21 +209,18 @@ let SyllektionEditing = ({
                             </DropdownMenu>
                         </Dropdown>
                     </Col>
-                    <Col md={5} className="m-0 p-0">
+                    <Col md={6} className="mb-2">
                         <Dropdown
                             isOpen={dropdownOpen}
                             toggle={toggleDropdown}
-                            className="text-primary pointer"
+                            className="pointer"
                         >
                             <DropdownToggle
                                 tag="span"
-                                className="text-primary pointer"
+                                className="pointer btn btn-block btn-outline-primary"
                                 data-toggle="dropdown"
                                 aria-expanded={dropdownOpen}
                                 caret
-                                style={{
-                                    width: '100px',
-                                }}
                             >
                                 {material}
                             </DropdownToggle>

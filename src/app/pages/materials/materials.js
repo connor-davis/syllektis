@@ -18,10 +18,20 @@ import { selectMaterials } from '../../util/slices/materials.slice'
 const Materials = () => {
     const dispatch = useDispatch()
     const materials = useSelector(selectMaterials)
+    const [sortedMaterials, setSortedMaterials] = useState([])
 
     useEffect(() => {
         if (materials) loadMaterials(dispatch)
     }, [])
+
+    useEffect(() => {
+        let _sorted = [...materials].sort((_a, _b) => {
+            if (_a.lastName > _b.lastName) return -1
+            if (_a.lastName < _b.lastName) return 1
+            return 0
+        })
+        setSortedMaterials(_sorted)
+    }, [materials])
 
     const [modalAdd, setModalAdd] = useState(false)
     const toggleAdd = () => setModalAdd(!modalAdd)
@@ -43,11 +53,7 @@ const Materials = () => {
                     }}
                     className="p-2"
                 >
-                    <AddMaterialModal
-                        modal={modalAdd}
-                        toggle={toggleAdd}
-                        materials={materials}
-                    />
+                    <AddMaterialModal modal={modalAdd} toggle={toggleAdd} />
                     <Button
                         color="primary"
                         className="mr-2"
@@ -56,7 +62,7 @@ const Materials = () => {
                         <div>Add Material</div>
                     </Button>
                     <ExportMaterialsCSV
-                        csvData={materials}
+                        csvData={sortedMaterials}
                         fileName={`materials-data-${moment().format(
                             'DD/MM/YYYY'
                         )}`}
@@ -77,7 +83,7 @@ const Materials = () => {
                             </tr>
                         </thead>
                         <tbody>
-                            {materials.map((material, index) => {
+                            {sortedMaterials.map((material, index) => {
                                 return (
                                     <tr
                                         key={index + material.idNumber}

@@ -18,11 +18,20 @@ import { selectSyllektions } from '../../util/slices/syllektions.slice'
 const Syllektions = () => {
     const dispatch = useDispatch()
     const syllektions = useSelector(selectSyllektions)
-    // const materials = useSelector(selectMaterials)
+    const [sortedSyllektions, setSortedSyllektions] = useState([])
 
     useEffect(() => {
         if (syllektions) loadSyllektions(dispatch)
     }, [])
+
+    useEffect(() => {
+        let _sorted = [...syllektions].sort((_a, _b) => {
+            if (_a.dateIn > _b.dateIn) return -1
+            if (_a.dateIn < _b.dateIn) return 1
+            return 0
+        })
+        setSortedSyllektions(_sorted)
+    }, [syllektions])
 
     const [modalAdd, setModalAdd] = useState(false)
     const toggleAdd = () => setModalAdd(!modalAdd)
@@ -43,12 +52,7 @@ const Syllektions = () => {
                     }}
                     className="p-2"
                 >
-                    <AddSyllektionModal
-                        modal={modalAdd}
-                        toggle={toggleAdd}
-                        syllektors={syllektions}
-                        // materials={materials}
-                    />
+                    <AddSyllektionModal modal={modalAdd} toggle={toggleAdd} />
                     <Button
                         color="primary"
                         className="mr-2"
@@ -57,7 +61,7 @@ const Syllektions = () => {
                         Add Collection
                     </Button>
                     <ExportSyllektionsCSV
-                        csvData={syllektions}
+                        csvData={sortedSyllektions}
                         fileName={`syllektions-data-${moment().format(
                             'DD/MM/YYYY'
                         )}`}
@@ -67,20 +71,33 @@ const Syllektions = () => {
 
             <Col className="px-2 m-0">
                 <div className="shadow-sm bg-light">
-                    <Table className="p-0 m-0" bordered hover responsive>
+                    <Table
+                        className="p-0 m-0"
+                        bordered
+                        hover
+                        responsive
+                        style={{
+                            width: '100%',
+                        }}
+                    >
                         <thead>
                             <tr>
                                 <th>#</th>
                                 <th>ID Number</th>
                                 <th>Material</th>
-                                <th>Mass</th>
+                                <th>Mass (kg)</th>
                                 <th>Date</th>
                                 <th>Earned</th>
-                                <th></th>
+                                <th
+                                    style={{
+                                        minWidth: '100px',
+                                        maxWidth: '100px',
+                                    }}
+                                ></th>
                             </tr>
                         </thead>
                         <tbody>
-                            {syllektions.map((syllektion, index) => (
+                            {sortedSyllektions.map((syllektion, index) => (
                                 <tr key={index}>
                                     {syllektion.editing ? (
                                         <SyllektionEditing
@@ -102,7 +119,11 @@ const Syllektions = () => {
                                     <td>{syllektion.idNumber}</td>
                                     <td>{syllektion.material}</td>
                                     <td>{syllektion.mass}</td>
-                                    <td>{syllektion.dateIn}</td>
+                                    <td>
+                                        {moment(syllektion.dateIn).format(
+                                            'DD/MM/YYYY'
+                                        )}
+                                    </td>
                                     <td>R {syllektion.earned}</td>
                                     <td>
                                         <Row

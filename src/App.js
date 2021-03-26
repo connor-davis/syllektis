@@ -59,7 +59,9 @@ function App() {
                                             transform: 'translate(-50%, -50%)',
                                         }}
                                         tag="h4"
-                                    >Welcome to Syllektis.</div>
+                                    >
+                                        Welcome to Syllektis.
+                                    </div>
                                 )}
                             />
                             <Route

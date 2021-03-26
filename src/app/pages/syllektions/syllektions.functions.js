@@ -7,7 +7,7 @@ import { v4 } from 'uuid'
 let database = new Database()
 
 export const loadSyllektions = async (dispatch) =>
-    dispatch(setSyllektions((await database.getAll('syllektion')) || []))
+    dispatch(setSyllektions((await database.getAll('reuseit:syllektion')) || []))
 
 export const addSyllektion = ({
     syllektions,
@@ -29,17 +29,22 @@ export const addSyllektion = ({
             idNumber,
             material,
             mass,
-            dateIn: moment().format('DD/MM/YYYY').toString(),
+            dateIn: Date.now(),
             earned: calculateEarnings({ materials, material, mass }),
             editing: false,
-            _id: `syllektion:${v4()}`,
+            _id: `reuseit:syllektion:${v4()}`,
         }
 
-        let iter = syllektions !== undefined ? [...syllektions] : [...[]]
-
-        database.add(data, (added) =>
-            dispatch(setSyllektions([...iter, { ...data, ...added }]))
-        )
+        if (syllektions !== undefined)
+            database.add(data, (added) =>
+                dispatch(
+                    setSyllektions([...syllektions, { ...data, ...added }])
+                )
+            )
+        else
+            database.add(data, (added) =>
+                dispatch(setSyllektions([{ ...data, ...added }]))
+            )
     }
 }
 
@@ -65,7 +70,11 @@ export const completeEdit = (syllektions, syllektion, materials, dispatch) => {
     database.update(
         {
             ...syllektion,
-            earned: calculateEarnings({ materials, material: syllektion.material, mass: syllektion.mass }),
+            earned: calculateEarnings({
+                materials,
+                material: syllektion.material,
+                mass: syllektion.mass,
+            }),
             editing: false,
         },
         (updated) =>

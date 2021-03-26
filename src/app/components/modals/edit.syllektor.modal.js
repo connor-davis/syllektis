@@ -1,16 +1,29 @@
 import {
     Alert,
     Button,
+    Col,
     Input,
     InputGroup,
+    InputGroupAddon,
+    InputGroupText,
     Modal,
     ModalBody,
     ModalFooter,
     ModalHeader,
 } from 'reactstrap'
+import {
+    FaAddressCard,
+    FaBuilding,
+    FaCheck,
+    FaCity,
+    FaCode,
+    FaCodeBranch,
+    FaGlobe,
+    FaPiggyBank,
+    FaRoad,
+    FaSatellite,
+} from 'react-icons/fa'
 import React, { useState } from 'react'
-
-import { FaCheck } from 'react-icons/fa'
 
 const SyllektorEditing = ({
     index,
@@ -113,37 +126,62 @@ const SyllektorEditing = ({
                     onChange={({ target }) => setPhoneNumber(target.value)}
                     required
                 />
-                <Input
-                    type="text"
-                    className="border-focus mb-4"
-                    style={{ boxShadow: 'none' }}
-                    placeholder="ID Number"
-                    value={idNumber}
-                    onChange={({ target }) => setIdNumber(target.value)}
-                    required
-                />
-                <Input
-                    type="text"
-                    className="border-focus mb-2 mt-4"
-                    style={{ boxShadow: 'none' }}
-                    placeholder="Account Number"
-                    value={accountNumber}
-                    onChange={({ target }) => setAccountNumber(target.value)}
-                    required
-                />
                 <InputGroup>
                     <Input
                         type="text"
-                        className="border-focus mr-1"
+                        className="border-focus mb-4"
+                        style={{ boxShadow: 'none' }}
+                        placeholder="ID Number"
+                        value={idNumber}
+                        onChange={({ target }) => setIdNumber(target.value)}
+                        required
+                    />
+                </InputGroup>
+                <InputGroup>
+                    <InputGroupAddon
+                        addonType="prepend"
+                        color="primary"
+                        className="mb-2 mt-1"
+                    >
+                        <InputGroupText className="text-primary px-1">
+                            <FaAddressCard />
+                        </InputGroupText>
+                    </InputGroupAddon>
+                    <Input
+                        type="text"
+                        className="border-focus mb-2 mt-1"
+                        style={{ boxShadow: 'none' }}
+                        placeholder="Account Number"
+                        value={accountNumber}
+                        onChange={({ target }) =>
+                            setAccountNumber(target.value)
+                        }
+                        required
+                    />
+                </InputGroup>
+                <InputGroup>
+                    <InputGroupAddon addonType="prepend" color="primary">
+                        <InputGroupText className="text-primary px-1">
+                            <FaCodeBranch />
+                        </InputGroupText>
+                    </InputGroupAddon>
+                    <Input
+                        type="text"
+                        className="border-focus mr-2"
                         style={{ boxShadow: 'none' }}
                         placeholder="Branch Code"
                         value={branchCode}
                         onChange={({ target }) => setBranchCode(target.value)}
                         required
                     />
+                    <InputGroupAddon addonType="prepend" color="primary">
+                        <InputGroupText className="text-primary px-1">
+                            <FaBuilding />
+                        </InputGroupText>
+                    </InputGroupAddon>
                     <Input
                         type="text"
-                        className="border-focus ml-1"
+                        className="border-focus"
                         style={{ boxShadow: 'none' }}
                         placeholder="Bank Name"
                         value={bankName}
@@ -151,37 +189,63 @@ const SyllektorEditing = ({
                         required
                     />
                 </InputGroup>
-                <Input
-                    type="text"
-                    className="border-focus mb-2 mt-4"
-                    style={{ boxShadow: 'none' }}
-                    placeholder="Address"
-                    value={address}
-                    onChange={({ target }) => setAddress(target.value)}
-                    required
-                />
                 <InputGroup>
+                    <InputGroupAddon
+                        addonType="prepend"
+                        color="primary"
+                        className="mb-2 mt-4"
+                    >
+                        <InputGroupText className="text-primary px-1">
+                            <FaRoad />
+                        </InputGroupText>
+                    </InputGroupAddon>
                     <Input
                         type="text"
-                        className="border-focus mr-1"
+                        className="border-focus mb-2 mt-4"
+                        style={{ boxShadow: 'none' }}
+                        placeholder="Address"
+                        value={address}
+                        onChange={({ target }) => setAddress(target.value)}
+                        required
+                    />
+                </InputGroup>
+                <InputGroup>
+                    <InputGroupAddon addonType="prepend" color="primary">
+                        <InputGroupText className="text-primary px-1">
+                            <FaCity />
+                        </InputGroupText>
+                    </InputGroupAddon>
+                    <Input
+                        type="text"
+                        className="border-focus mr-2"
                         style={{ boxShadow: 'none' }}
                         placeholder="City"
                         value={city}
                         onChange={({ target }) => setCity(target.value)}
                         required
                     />
+                    <InputGroupAddon addonType="prepend" color="primary">
+                        <InputGroupText className="text-primary px-1">
+                            <FaCode />
+                        </InputGroupText>
+                    </InputGroupAddon>
                     <Input
                         type="text"
-                        className="border-focus mx-1"
+                        className="border-focus mr-2"
                         style={{ boxShadow: 'none' }}
                         placeholder="Postal Code"
                         value={postalCode}
                         onChange={({ target }) => setPostalCode(target.value)}
                         required
                     />
+                    <InputGroupAddon addonType="prepend" color="primary">
+                        <InputGroupText className="text-primary px-1">
+                            <FaSatellite />
+                        </InputGroupText>
+                    </InputGroupAddon>
                     <Input
                         type="text"
-                        className="border-focus ml-1"
+                        className="border-focus"
                         style={{ boxShadow: 'none' }}
                         placeholder="Province"
                         value={province}

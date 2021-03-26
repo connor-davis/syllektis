@@ -5,7 +5,7 @@ import { v4 } from 'uuid'
 let database = new Database()
 
 export const loadSyllektors = async (dispatch) =>
-    dispatch(setSyllektors((await database.getAll('syllektor')) || []))
+    dispatch(setSyllektors((await database.getAll('reuseit:syllektor')) || []))
 
 export const addSyllektor = ({
     syllektors,
@@ -56,7 +56,7 @@ export const addSyllektor = ({
             bankName,
             address,
             editing: false,
-            _id: `syllektor:${v4()}`,
+            _id: `reuseit:syllektor:${v4()}`,
         }
 
         let iter = syllektors !== undefined ? [...syllektors] : [...[]]

@@ -5,7 +5,7 @@ import { v4 } from 'uuid'
 let database = new Database()
 
 export const loadMaterials = async (dispatch) =>
-    dispatch(setMaterials((await database.getAll('material')) || []))
+    dispatch(setMaterials((await database.getAll('reuseit:material')) || []))
 
 export const addMaterial = ({
     materials,
@@ -27,7 +27,7 @@ export const addMaterial = ({
             type,
             value,
             editing: false,
-            _id: `material:${v4()}`,
+            _id: `reuseit:material:${v4()}`,
         }
 
         let iter = materials !== undefined ? [...materials] : [...[]]

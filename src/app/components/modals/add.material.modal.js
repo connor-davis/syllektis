@@ -9,12 +9,15 @@ import {
     ModalHeader,
 } from 'reactstrap'
 import React, { useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 
 import { addMaterial } from '../../pages/materials/materials.functions'
-import { useDispatch } from 'react-redux'
+import { selectMaterials } from '../../util/slices/materials.slice'
 
-let AddMaterialModal = ({ modal, toggle, materials }) => {
+let AddMaterialModal = ({ modal, toggle }) => {
     let dispatch = useDispatch()
+
+    let materials = useSelector(selectMaterials)
 
     const [name, setName] = useState('')
     const [type, setType] = useState('')
