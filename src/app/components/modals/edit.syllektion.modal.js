@@ -16,15 +16,11 @@ import {
 } from 'reactstrap'
 import { FaMinus, FaPlus, FaSearch } from 'react-icons/fa'
 import React, { useEffect, useState } from 'react'
-import {
-    addSyllektion,
-    completeEdit,
-} from '../../pages/syllektions/syllektions.functions'
 import { useDispatch, useSelector } from 'react-redux'
 
 import { FadeIn } from '../animations'
-import { loadMaterials } from '../../pages/materials/materials.functions'
-import { loadSyllektors } from '../../pages/syllektors/syllektors.functions'
+import { loadMaterials } from '../../functions/materials.functions'
+import { loadSyllektors } from '../../functions/syllektors.functions'
 import { selectMaterials } from '../../util/slices/materials.slice'
 import { selectSyllektors } from '../../util/slices/syllektors.slice'
 

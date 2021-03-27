@@ -14,7 +14,7 @@ import { FaAddressCard, FaBuilding, FaCity, FaCode, FaCodeBranch, FaRoad, FaSate
 import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 
-import { addSyllektor } from '../../pages/syllektors/syllektors.functions'
+import { addSyllektor } from '../../functions/syllektors.functions'
 import { selectSyllektors } from '../../util/slices/syllektors.slice'
 
 let AddSyllektorModal = ({ modal, toggle }) => {

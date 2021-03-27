@@ -11,7 +11,7 @@ import {
 import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 
-import { addMaterial } from '../../pages/materials/materials.functions'
+import { addMaterial } from '../../functions/materials.functions'
 import { selectMaterials } from '../../util/slices/materials.slice'
 
 let AddMaterialModal = ({ modal, toggle }) => {
