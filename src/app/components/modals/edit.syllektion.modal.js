@@ -22,6 +22,7 @@ import {
 } from '../../pages/syllektions/syllektions.functions'
 import { useDispatch, useSelector } from 'react-redux'
 
+import { FadeIn } from '../animations'
 import { loadMaterials } from '../../pages/materials/materials.functions'
 import { loadSyllektors } from '../../pages/syllektors/syllektors.functions'
 import { selectMaterials } from '../../util/slices/materials.slice'
@@ -184,28 +185,30 @@ let SyllektionEditing = ({
                                 {idNumber}
                             </DropdownToggle>
                             <DropdownMenu className="text-center p-1">
-                                <InputGroup className="mb-2">
-                                    <InputGroupAddon
-                                        addonType="prepend"
-                                        color="primary"
-                                    >
-                                        <InputGroupText className="text-primary">
-                                            <FaSearch />
-                                        </InputGroupText>
-                                    </InputGroupAddon>
-                                    <Input
-                                        type="text"
-                                        className="border-focus m-0 py-0"
-                                        style={{ boxShadow: 'none' }}
-                                        placeholder="Collector ID"
-                                        value={idNumberSearch}
-                                        onChange={({ target }) =>
-                                            setIdNumberSearch(target.value)
-                                        }
-                                        required
-                                    />
-                                </InputGroup>
-                                <SyllektorsList />
+                                <FadeIn>
+                                    <InputGroup className="mb-2">
+                                        <InputGroupAddon
+                                            addonType="prepend"
+                                            color="primary"
+                                        >
+                                            <InputGroupText className="text-primary">
+                                                <FaSearch />
+                                            </InputGroupText>
+                                        </InputGroupAddon>
+                                        <Input
+                                            type="text"
+                                            className="border-focus m-0 py-0"
+                                            style={{ boxShadow: 'none' }}
+                                            placeholder="Collector ID"
+                                            value={idNumberSearch}
+                                            onChange={({ target }) =>
+                                                setIdNumberSearch(target.value)
+                                            }
+                                            required
+                                        />
+                                    </InputGroup>
+                                    <SyllektorsList />
+                                </FadeIn>
                             </DropdownMenu>
                         </Dropdown>
                     </Col>
@@ -225,7 +228,9 @@ let SyllektionEditing = ({
                                 {material}
                             </DropdownToggle>
                             <DropdownMenu className="text-center p-1">
-                                <MaterialsList />
+                                <FadeIn>
+                                    <MaterialsList />
+                                </FadeIn>
                             </DropdownMenu>
                         </Dropdown>
                     </Col>
