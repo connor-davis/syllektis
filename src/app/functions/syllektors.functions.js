@@ -1,5 +1,5 @@
-import Database from '../../util/database'
-import { setSyllektors } from '../../util/slices/syllektors.slice'
+import Database from '../util/database'
+import { setSyllektors } from '../util/slices/syllektors.slice'
 import { v4 } from 'uuid'
 
 let database = new Database()

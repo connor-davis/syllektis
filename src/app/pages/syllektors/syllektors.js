@@ -6,7 +6,7 @@ import {
     editSyllektor,
     loadSyllektors,
     removeSyllektor,
-} from './syllektors.functions'
+} from '../../functions/syllektors.functions'
 import { useDispatch, useSelector } from 'react-redux'
 
 import AddSyllektorModal from '../../components/modals/add.syllektor.modal'

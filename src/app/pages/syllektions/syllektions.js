@@ -6,7 +6,7 @@ import {
     editSyllektion,
     loadSyllektions,
     removeSyllektion,
-} from './syllektions.functions'
+} from '../../functions/syllektions.functions'
 import { useDispatch, useSelector } from 'react-redux'
 
 import AddSyllektionModal from '../../components/modals/add.syllektion.modal'

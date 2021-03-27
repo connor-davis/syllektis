@@ -5,7 +5,7 @@ import {
     editMaterial,
     loadMaterials,
     removeMaterial,
-} from './materials.functions'
+} from '../../functions/materials.functions'
 import { useDispatch, useSelector } from 'react-redux'
 import { useEffect, useState } from 'react'
 

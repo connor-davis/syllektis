@@ -1,5 +1,5 @@
-import Database from '../../util/database'
-import { setMaterials } from '../../util/slices/materials.slice'
+import Database from '../util/database'
+import { setMaterials } from '../util/slices/materials.slice'
 import { v4 } from 'uuid'
 
 let database = new Database()

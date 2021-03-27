@@ -1,7 +1,6 @@
-import Database from '../../util/database'
-import { calculateEarnings } from '../../util/earnings.calculator'
-import moment from 'moment'
-import { setSyllektions } from '../../util/slices/syllektions.slice'
+import Database from '../util/database'
+import { calculateEarnings } from '../util/earnings.calculator'
+import { setSyllektions } from '../util/slices/syllektions.slice'
 import { v4 } from 'uuid'
 
 let database = new Database()
