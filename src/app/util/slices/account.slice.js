@@ -1,1 +1,19 @@
-//TODO This will provide functionality for accounts to login and manage their users etc.
+import { createSlice } from '@reduxjs/toolkit'
+
+const accountSlice = createSlice({
+    name: 'loading',
+    initialState: {
+        details: {},
+    },
+    reducers: {
+        setAccountDetails: (state, action) => {
+            state.details = action.payload
+        },
+    },
+})
+
+const { setAccountDetails } = accountSlice.actions
+
+const selectAccountDetails = (state) => state.accountReducer.details
+
+export { accountSlice, setAccountDetails, selectAccountDetails }

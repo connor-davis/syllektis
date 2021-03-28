@@ -1,5 +1,6 @@
 import { applyMiddleware, createStore } from 'redux'
 
+import { accountSlice } from './slices/account.slice'
 import { combineReducers } from '@reduxjs/toolkit'
 import { loadingSlice } from './slices/loading.slice'
 import { materialsSlice } from './slices/materials.slice'
@@ -10,6 +11,7 @@ let syllektorsReducer = syllektorsSlice.reducer
 let syllektionsReducer = syllektionsSlice.reducer
 let materialsReducer = materialsSlice.reducer
 let loadingReducer = loadingSlice.reducer
+let accountReducer = accountSlice.reducer
 
 function loggerMiddleware(store) {
     return function (next) {
@@ -26,6 +28,7 @@ const rootReducer = combineReducers({
     syllektionsReducer,
     materialsReducer,
     loadingReducer,
+    accountReducer,
 })
 
 let store = createStore(rootReducer, applyMiddleware(loggerMiddleware))
