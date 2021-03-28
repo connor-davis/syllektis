@@ -19,8 +19,9 @@ function App() {
     let loading = useSelector(isLoading)
 
     useEffect(() => {
-        database.backup()
-        database.init()
+        database.init().then(() => {
+            console.log('Database Sync Complete.')
+        })
     }, [])
 
     return (
