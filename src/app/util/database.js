@@ -9,7 +9,9 @@ var database = new PouchDB('syllektis-database')
 class Database {
     constructor() {
         this._interval = setInterval(() => {
-            this.backup()
+            this.backup().then(() => {
+                console.log('Database Sync Complete.')
+            })
         }, 5 * 1000 * 60)
     }
 
@@ -108,17 +110,15 @@ class Database {
     }
 
     async backup(callback) {
-        database.replicate
-            .to('http://syllektis.connordavis.tech:5984/syllektis-database', {
+        database.sync(
+            'http://syllektis.connordavis.tech:5984/syllektis-database',
+            {
                 auth: {
                     username: 'syllektis',
                     password: window.POUCH_PASSWORD,
                 },
-            })
-            .then(() => {
-                if (callback) callback()
-                console.log('Database Backed Up.')
-            })
+            }
+        )
     }
 
     async close() {
