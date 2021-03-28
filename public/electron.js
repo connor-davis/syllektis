@@ -58,17 +58,17 @@ app.on('activate', () => {
 // Auto updates //
 //--------------//
 
-autoUpdater.on('checking-for-update', () => { })
+autoUpdater.on('checking-for-update', () => {})
 
 autoUpdater.on('update-available', (info) => {
     autoUpdater.downloadUpdate()
 })
 
-autoUpdater.on('update-not-available', (info) => { })
+autoUpdater.on('update-not-available', (info) => {})
 
-autoUpdater.on('error', (err) => { })
+autoUpdater.on('error', (err) => {})
 
-autoUpdater.on('download-progress', (progressObj) => { })
+autoUpdater.on('download-progress', (progressObj) => {})
 
 autoUpdater.on('update-downloaded', (info) => {
     setTimeout(() => {
