@@ -13,10 +13,10 @@ function createWindow() {
         height: 720,
         autoHideMenuBar: true,
         webPreferences: {
-            nodeIntegration: false, // is default value after Electron v5
-            contextIsolation: true, // protect against prototype pollution
-            enableRemoteModule: false, // turn off remote
-            preload: path.join(__dirname, 'preload.js'), // use a preload script
+            nodeIntegration: false,
+            contextIsolation: true,
+            enableRemoteModule: false,
+            preload: path.join(__dirname, 'preload.js'),
         },
     })
 
@@ -54,21 +54,21 @@ app.on('activate', () => {
     }
 })
 
-//-------------------------------------------------------------------
-// Auto updates
-//-------------------------------------------------------------------
+//--------------//
+// Auto updates //
+//--------------//
 
-autoUpdater.on('checking-for-update', () => {})
+autoUpdater.on('checking-for-update', () => { })
 
 autoUpdater.on('update-available', (info) => {
     autoUpdater.downloadUpdate()
 })
 
-autoUpdater.on('update-not-available', (info) => {})
+autoUpdater.on('update-not-available', (info) => { })
 
-autoUpdater.on('error', (err) => {})
+autoUpdater.on('error', (err) => { })
 
-autoUpdater.on('download-progress', (progressObj) => {})
+autoUpdater.on('download-progress', (progressObj) => { })
 
 autoUpdater.on('update-downloaded', (info) => {
     setTimeout(() => {
